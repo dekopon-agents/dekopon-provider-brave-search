@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rich Search proposed provider input (not implemented)",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "const": "rich"
+    },
+    "native": {
+      "type": "object",
+      "properties": {
+        "callback_key": {
+          "type": "string",
+          "description": "Opaque continuation supplied by Web rich.hint.callback_key; percent-encode verbatim. Never parse it as credentials or execute an arbitrary callback URL.",
+          "x-vendor-constraints": ""
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "callback_key"
+      ]
+    },
+    "localization": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "output": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "raw",
+            "brief"
+          ],
+          "default": "brief"
+        },
+        "max_results": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200,
+          "default": 10
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 262144,
+          "default": 32768
+        },
+        "fields": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^/"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "fields"
+            ]
+          },
+          "then": {
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "const": "raw"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "operation",
+    "native"
+  ]
+}

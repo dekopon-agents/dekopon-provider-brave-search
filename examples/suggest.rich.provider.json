@@ -1,0 +1,15 @@
+{
+  "operation": "suggest",
+  "native": {
+    "q": "orbital gar",
+    "lang": "en",
+    "country": "GB",
+    "count": 3,
+    "rich": true
+  },
+  "output": {
+    "mode": "raw",
+    "max_results": 10,
+    "max_bytes": 32768
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "operation": "context",
+  "mode": "raw",
+  "provenance": {
+    "endpoint": "https://api.search.brave.com/res/v1/llm/context",
+    "synthetic": true,
+    "http_status": 200
+  },
+  "truncated": false,
+  "records": [
+    {
+      "title": "Orbital Garden Handbook",
+      "url": "https://example.com/gardens",
+      "snippets": [
+        "A synthetic garden uses recirculated water."
+      ],
+      "generated": false
+    }
+  ]
+}

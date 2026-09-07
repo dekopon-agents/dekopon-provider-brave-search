@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rich Search decoded upstream GET request shape (auth omitted in fixtures)",
+  "description": "Documented-shape schema, not an exhaustive wire validator. query values use reference types; headers are strings. Required broker secret is intentionally not required in offline fixtures. See coverage and source conflicts.",
+  "x-source": "https://api-dashboard.search.brave.com/api-reference/web/rich_search/index.html.md",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "object",
+      "properties": {
+        "callback_key": {
+          "type": "string",
+          "description": "Opaque continuation supplied by Web rich.hint.callback_key; percent-encode verbatim. Never parse it as credentials or execute an arbitrary callback URL.",
+          "x-vendor-constraints": ""
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "callback_key"
+      ]
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "x-subscription-token": {
+          "type": "string",
+          "description": "Required vendor secret header. Broker-only integration gate; not a provider argument or fixture value.",
+          "x-vendor-constraints": ""
+        },
+        "api-version": {
+          "type": "string",
+          "description": "Date-form API version YYYY-MM-DD; omission follows latest. Operator selects any explicit pin; old Context pipeline pin is 2026-02-06.",
+          "x-vendor-constraints": ""
+        },
+        "accept": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ],
+          "default": "application/json",
+          "description": "application/json requests JSON; */* accepts the available representation. Provider fixes JSON.",
+          "x-vendor-constraints": "`application/json`, `*/*`; default `application/json`"
+        },
+        "cache-control": {
+          "type": "string",
+          "description": "no-cache asks upstream to avoid cached content on a best-effort basis; no retention or origin-fetch guarantee.",
+          "x-vendor-constraints": "`no-cache`"
+        },
+        "user-agent": {
+          "type": "string",
+          "description": "Originating agent/device description can change presentation; operator-owned, not caller-supplied arbitrary identity.",
+          "x-vendor-constraints": ""
+        },
+        "accept-encoding": {
+          "type": "string",
+          "description": "Compression negotiation shown as gzip in public examples; operator-only and deferred until bounded decompression behavior is verified.",
+          "x-vendor-constraints": "`gzip`"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "query"
+  ]
+}

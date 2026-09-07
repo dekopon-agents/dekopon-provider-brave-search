@@ -1,0 +1,14 @@
+{
+  "operation": "poi-descriptions",
+  "native": {
+    "ids": [
+      "synthetic-place-01",
+      "synthetic-place-02"
+    ]
+  },
+  "output": {
+    "mode": "raw",
+    "max_results": 10,
+    "max_bytes": 32768
+  }
+}

@@ -1,0 +1,1 @@
+https://api.search.brave.com/res/v1/news/search?q=orbital+gardens&country=GB&search_lang=en&ui_lang=en-GB&count=5&offset=1&freshness=pd&safesearch=strict&spellcheck=false&extra_snippets=true&goggles=%24boost%2Csite%3Dexample.com&include_fetch_metadata=true&operators=false

@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Local POIs decoded upstream GET request shape (auth omitted in fixtures)",
+  "description": "Documented-shape schema, not an exhaustive wire validator. query values use reference types; headers are strings. Required broker secret is intentionally not required in offline fixtures. See coverage and source conflicts.",
+  "x-source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "maxItems": 20,
+          "description": "Temporary place identifiers obtained from search, valid for about eight hours; repeated query keys, one to twenty IDs per Web guide.",
+          "x-vendor-constraints": ""
+        },
+        "search_lang": {
+          "type": "string",
+          "enum": [
+            "ar",
+            "eu",
+            "bn",
+            "bg",
+            "ca",
+            "zh-hans",
+            "zh-hant",
+            "hr",
+            "cs",
+            "da",
+            "nl",
+            "en",
+            "en-gb",
+            "et",
+            "fi",
+            "fr",
+            "gl",
+            "de",
+            "el",
+            "gu",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "it",
+            "ja",
+            "jp",
+            "kn",
+            "ko",
+            "lv",
+            "lt",
+            "ms",
+            "ml",
+            "mr",
+            "nb",
+            "pl",
+            "pt-br",
+            "pt-pt",
+            "pa",
+            "ro",
+            "ru",
+            "sr",
+            "sk",
+            "sl",
+            "es",
+            "sv",
+            "ta",
+            "te",
+            "th",
+            "tr",
+            "uk",
+            "vi"
+          ],
+          "default": "en",
+          "description": "Preferred content language, not interface language. Codes identify languages; regional/script suffixes narrow the preference.",
+          "x-vendor-constraints": "`ar`, `eu`, `bn`, `bg`, `ca`, `zh-hans`, `zh-hant`, `hr`, `cs`, `da`, `nl`, `en`, `en-gb`, `et`, `fi`, `fr`, `gl`, `de`, `el`, `gu`, `he`, `hi`, `hu`, `is`, `it`, `ja`, `jp`, `kn`, `ko`, `lv`, `lt`, `ms`, `ml`, `mr`, `nb`, `pl`, `pt-br`, `pt-pt`, `pa`, `ro`, `ru`, `sr`, `sk`, `sl`, `es`, `sv`, `ta`, `te`, `th`, `tr`, `uk`, `vi`; default `en`"
+        },
+        "ui_lang": {
+          "type": "string",
+          "enum": [
+            "es-AR",
+            "en-AU",
+            "de-AT",
+            "nl-BE",
+            "fr-BE",
+            "pt-BR",
+            "en-CA",
+            "fr-CA",
+            "es-CL",
+            "da-DK",
+            "fi-FI",
+            "fr-FR",
+            "de-DE",
+            "el-GR",
+            "zh-HK",
+            "en-IN",
+            "en-ID",
+            "it-IT",
+            "ja-JP",
+            "ko-KR",
+            "en-MY",
+            "es-MX",
+            "nl-NL",
+            "en-NZ",
+            "no-NO",
+            "zh-CN",
+            "pl-PL",
+            "en-PH",
+            "ru-RU",
+            "en-ZA",
+            "es-ES",
+            "sv-SE",
+            "fr-CH",
+            "de-CH",
+            "zh-TW",
+            "tr-TR",
+            "en-GB",
+            "en-US",
+            "es-US"
+          ],
+          "default": "en-US",
+          "description": "Language-region locale for presentation and metadata, not a translation request.",
+          "x-vendor-constraints": "`es-AR`, `en-AU`, `de-AT`, `nl-BE`, `fr-BE`, `pt-BR`, `en-CA`, `fr-CA`, `es-CL`, `da-DK`, `fi-FI`, `fr-FR`, `de-DE`, `el-GR`, `zh-HK`, `en-IN`, `en-ID`, `it-IT`, `ja-JP`, `ko-KR`, `en-MY`, `es-MX`, `nl-NL`, `en-NZ`, `no-NO`, `zh-CN`, `pl-PL`, `en-PH`, `ru-RU`, `en-ZA`, `es-ES`, `sv-SE`, `fr-CH`, `de-CH`, `zh-TW`, `tr-TR`, `en-GB`, `en-US`, `es-US`; default `en-US`"
+        },
+        "units": {
+          "type": "string",
+          "enum": [
+            "imperial",
+            "metric"
+          ],
+          "description": "metric uses kilometres/Celsius; imperial uses miles/Fahrenheit. Response quantities carry their own unit fields.",
+          "x-vendor-constraints": "`imperial`, `metric`"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ids"
+      ]
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "x-subscription-token": {
+          "type": "string",
+          "description": "Required vendor secret header. Broker-only integration gate; not a provider argument or fixture value.",
+          "x-vendor-constraints": ""
+        },
+        "x-loc-lat": {
+          "type": "string",
+          "description": "User latitude in decimal degrees; a nonsecret, potentially sensitive location hint.",
+          "x-vendor-constraints": "`-90`-`90`"
+        },
+        "x-loc-long": {
+          "type": "string",
+          "description": "User longitude in decimal degrees; a nonsecret, potentially sensitive location hint.",
+          "x-vendor-constraints": "`-180`-`180`"
+        },
+        "api-version": {
+          "type": "string",
+          "description": "Date-form API version YYYY-MM-DD; omission follows latest. Operator selects any explicit pin; old Context pipeline pin is 2026-02-06.",
+          "x-vendor-constraints": ""
+        },
+        "accept": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ],
+          "default": "application/json",
+          "description": "application/json requests JSON; */* accepts the available representation. Provider fixes JSON.",
+          "x-vendor-constraints": "`application/json`, `*/*`; default `application/json`"
+        },
+        "cache-control": {
+          "type": "string",
+          "description": "no-cache asks upstream to avoid cached content on a best-effort basis; no retention or origin-fetch guarantee.",
+          "x-vendor-constraints": "`no-cache`"
+        },
+        "user-agent": {
+          "type": "string",
+          "description": "Originating agent/device description can change presentation; operator-owned, not caller-supplied arbitrary identity.",
+          "x-vendor-constraints": ""
+        },
+        "accept-encoding": {
+          "type": "string",
+          "description": "Compression negotiation shown as gzip in public examples; operator-only and deferred until bounded decompression behavior is verified.",
+          "x-vendor-constraints": "`gzip`"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "query"
+  ]
+}

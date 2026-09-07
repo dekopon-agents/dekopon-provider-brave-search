@@ -1,0 +1,15 @@
+{
+  "operation": "spellcheck",
+  "mode": "page-text",
+  "provenance": {
+    "endpoint": "https://api.search.brave.com/res/v1/spellcheck/search",
+    "synthetic": true,
+    "http_status": 200
+  },
+  "truncated": false,
+  "records": [
+    {
+      "query": "orbital gardens"
+    }
+  ]
+}

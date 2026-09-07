@@ -1,0 +1,8 @@
+{
+  "operation": "place",
+  "native": {
+    "location": "Example City",
+    "latitude": "51.5",
+    "longitude": "-0.1"
+  }
+}

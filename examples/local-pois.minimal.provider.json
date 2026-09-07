@@ -1,0 +1,8 @@
+{
+  "operation": "local-pois",
+  "native": {
+    "ids": [
+      "synthetic-place-01"
+    ]
+  }
+}

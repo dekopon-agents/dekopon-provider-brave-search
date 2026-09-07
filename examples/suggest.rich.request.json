@@ -1,0 +1,14 @@
+{
+  "query": {
+    "q": "orbital gar",
+    "lang": "en",
+    "country": "GB",
+    "count": 3,
+    "rich": true
+  },
+  "headers": {
+    "accept": "application/json",
+    "cache-control": "no-cache",
+    "user-agent": "SyntheticDocsExample/1.0"
+  }
+}

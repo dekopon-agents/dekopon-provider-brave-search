@@ -1,0 +1,12 @@
+{
+  "operation": "context",
+  "native": {
+    "q": "garden",
+    "goggles": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ]
+  }
+}

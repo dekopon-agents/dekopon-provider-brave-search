@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Images Search upstream 200 documented-shape schema",
+  "description": "All fetched reference 200 field paths are represented; guide-only Context metadata is added. Unknown properties are allowed, and optional reference fields allow null. Requiredness is intentionally not enforced because these are variable vendor models, not exhaustive validation.",
+  "x-source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Vendor field; semantic details/units are not specified in the fetched reference."
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "original": {
+          "type": "string",
+          "description": "Original user phrase (or original asset URL within a thumbnail)."
+        },
+        "altered": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Spelling-corrected phrase actually used upstream."
+        },
+        "spellcheck_off": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Spellcheck off metadata/value within this model."
+        },
+        "show_strict_warning": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Indicates results were reduced by strict safety filtering."
+        }
+      },
+      "additionalProperties": true,
+      "description": "Query metadata object, or corrected/completed phrase on suggestion/spellcheck items."
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Documented discriminator `image_result` identifies this enclosing model; unknown future tags remain accepted."
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Title metadata/value within this model."
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Source/page URL in result records; URL meaning follows the enclosing model (image properties and profiles differ)."
+          },
+          "source": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Source metadata/value within this model."
+          },
+          "page_fetched": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Last-fetch date/time as provided by the vendor."
+          },
+          "thumbnail": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "src": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Src metadata/value within this model."
+              },
+              "width": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Width metadata/value within this model."
+              },
+              "height": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Height metadata/value within this model."
+              }
+            },
+            "additionalProperties": true,
+            "description": "Thumbnail metadata/value within this model."
+          },
+          "properties": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Source/page URL in result records; URL meaning follows the enclosing model (image properties and profiles differ)."
+              },
+              "placeholder": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Placeholder metadata/value within this model."
+              },
+              "width": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Width metadata/value within this model."
+              },
+              "height": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Height metadata/value within this model."
+              }
+            },
+            "additionalProperties": true,
+            "description": "Properties metadata/value within this model."
+          },
+          "meta_url": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "scheme": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Scheme metadata/value within this model."
+              },
+              "netloc": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Netloc metadata/value within this model."
+              },
+              "hostname": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Hostname metadata/value within this model."
+              },
+              "favicon": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Favicon metadata/value within this model."
+              },
+              "path": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Path metadata/value within this model."
+              }
+            },
+            "additionalProperties": true,
+            "description": "Meta url metadata/value within this model."
+          },
+          "confidence": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Vendor confidence label; scale and calibration are unspecified."
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Results collection."
+    },
+    "extra": {
+      "type": "object",
+      "properties": {
+        "might_be_offensive": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Might be offensive metadata/value within this model."
+        }
+      },
+      "additionalProperties": true,
+      "description": "Extra metadata/value within this model."
+    }
+  },
+  "additionalProperties": true
+}

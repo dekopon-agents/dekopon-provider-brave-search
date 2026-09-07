@@ -1,0 +1,23 @@
+{
+  "type": "locations",
+  "query": {
+    "original": "gardens"
+  },
+  "results": [
+    {
+      "type": "location_result",
+      "title": "Example Garden",
+      "url": "https://example.com/garden",
+      "provider_url": "https://example.com/places/1",
+      "id": "synthetic-place-01",
+      "coordinates": [
+        51.5,
+        -0.12
+      ],
+      "distance": {
+        "value": 0.2,
+        "units": "km"
+      }
+    }
+  ]
+}

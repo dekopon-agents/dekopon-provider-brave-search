@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Upstream error documented shape (status type conflict retained)",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "code": {
+          "type": "string"
+        },
+        "detail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "meta": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "status",
+        "code"
+      ]
+    },
+    "time": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "error"
+  ]
+}

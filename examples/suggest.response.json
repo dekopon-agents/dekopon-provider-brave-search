@@ -1,0 +1,17 @@
+{
+  "type": "suggest",
+  "query": {
+    "original": "orbital gar"
+  },
+  "results": [
+    {
+      "query": "orbital gardens",
+      "type": "query"
+    },
+    {
+      "query": "Orbital Garden Exhibit",
+      "type": "entity",
+      "is_entity": true
+    }
+  ]
+}
