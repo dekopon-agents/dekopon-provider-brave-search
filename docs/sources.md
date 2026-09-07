@@ -30,6 +30,10 @@ Read [llms.txt](https://api-dashboard.search.brave.com/llms.txt) first, then **2
 | 20 | [Deprecated Summarizer guide](https://api-dashboard.search.brave.com/documentation/services/summarizer/index.html.md) | 200 | 9537 | Deprecated Summarizer guide |
 | 21 | [Targeted Terms (retention and usage)](https://api-dashboard.search.brave.com/documentation/resources/terms-of-service) | 200 | 115088 | Targeted Terms (retention and usage) |
 
+## Review-supplied source addendum
+
+On 2026-09-07, independent review supplied one additional public source: the [Place Search guide](https://api-dashboard.search.brave.com/documentation/services/place-search/index.html.md), fetched once with HTTP 200. Its Response Fields → Top-Level Fields section specifies the top-level discriminator `locations`; the Place synthetic examples and field documentation now reflect it. This was not part of the original 22-fetch ledger above. The bounded repair pass made no additional HTTP fetches.
+
 ## Conflicts, source gaps and chosen documentation treatment
 
 1. **Context snippet maxima versus actual pipeline semantics.** Reference lists total snippets 1–256/default 50 and per-URL 1–100/default 50 as maxima. Guide's 2026-07-31 changelog and size section explicitly say these counts no longer constrain output when token budgets allow more. Both now show the same numerical ranges; the conflict is binding behavior, not a stale inherited numeric discrepancy. Preserve the knobs as advisory/currently possibly ignored, and never use them as a byte cap. `Api-Version: 2026-02-06` retains the older pipeline per guide. No live verification was performed.

@@ -385,6 +385,16 @@
       "file": "examples/invalid/context-get-query-and-body.json",
       "schema": "schemas/upstream/context.post.request.schema.json",
       "valid": false
+    },
+    {
+      "file": "examples/invalid/raw-with-records.json",
+      "schema": "schemas/provider/output.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/spellcheck-page-text.json",
+      "schema": "schemas/provider/output.schema.json",
+      "valid": false
     }
   ]
 }

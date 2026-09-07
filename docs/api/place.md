@@ -41,11 +41,13 @@ Safety: off disables adult filtering (Images still excludes illegal content); mo
 
 [Complete reference field-path catalog](place-response.md) · [documented-shape response schema](../../schemas/upstream/place.response.schema.json) · [synthetic response](../../examples/place.response.json).
 
+The [Place Search guide](https://api-dashboard.search.brave.com/documentation/services/place-search/index.html.md), Response Fields → Top-Level Fields, specifies `type: "locations"` for this response. The synthetic examples use that discriminator; the permissive upstream schema remains open to future response tags.
+
 Nested model optionality, provenance, scores, attribution, byte caps, errors and absence semantics are specified in [response semantics](../response-semantics.md). No cross-endpoint comparable relevance score or per-result price is established. This endpoint uses the shared error envelope; HTTP status and body are separate.
 
 ```json
 {
-  "type": "local_search",
+  "type": "locations",
   "query": {
     "original": "gardens"
   },

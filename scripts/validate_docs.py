@@ -92,8 +92,34 @@ def main():
             resolve_link(path, target)
             links += 1
 
+    # Keep the synthetic Place discriminator and its inline copy source-accurate
+    # without closing the permissive upstream response schema to future tags.
+    place_response = load(ROOT / "examples/place.response.json")
+    assert place_response["type"] == "locations", "Place fixture must use the guide's locations discriminator"
+    place_blocks = [json.loads(block) for block in re.findall(
+        r"^```json\s*\n(.*?)^```\s*$", (ROOT / "docs/api/place.md").read_text(), re.M | re.S
+    )]
+    assert [block for block in place_blocks if "type" in block] == [place_response], "Place inline response must match its fixture"
+
     coverage = load(ROOT / "coverage.json")
     Draft202012Validator(load(ROOT / "schemas/coverage.schema.json")).validate(coverage)
+    # Check every output operation/mode pair against the existing input contract.
+    output_validator = Draft202012Validator(load(ROOT / "schemas/provider/output.schema.json"))
+    output_modes = output_validator.schema["properties"]["mode"]["enum"]
+    matrix_cases = 0
+    for endpoint in coverage["endpoints"]:
+        input_schema = load(ROOT / endpoint["provider_schema"])
+        allowed_modes = input_schema["properties"]["output"]["properties"]["mode"]["enum"]
+        for mode in output_modes:
+            envelope = {
+                "operation": endpoint["operation"],
+                "mode": mode,
+                "provenance": {"endpoint": endpoint["url"], "synthetic": True},
+                "truncated": False,
+            }
+            envelope.update({"raw": {}} if mode == "raw" else {"records": []})
+            assert output_validator.is_valid(envelope) == (mode in allowed_modes), f"Output mode mismatch: {endpoint['operation']}/{mode}"
+            matrix_cases += 1
     operations = set()
     entries = response_paths = 0
     for endpoint in coverage["endpoints"]:
@@ -130,6 +156,7 @@ def main():
     assert operations == {"web", "context", "news", "images", "videos", "place", "local-pois", "poi-descriptions", "rich", "suggest", "spellcheck"}
     print(f"PASS: {len(json_files)} JSON files; {len(schemas)} well-formed schemas; {valid_count} valid and {invalid_count} invalid fixtures")
     print(f"PASS: {fenced} JSON fences; {links} Markdown links; coverage/schema JSON Pointers")
+    print(f"PASS: {matrix_cases} output operation/mode cases; Place discriminator and inline fixture agreement")
     print(f"PASS: {len(operations)} operations; {entries} request-field/location entries; {response_paths} reference response paths")
     print("NOT PROVEN: live API compatibility, exhaustive vendor validation, legal entitlement, auth integration, runtime byte limits")
 

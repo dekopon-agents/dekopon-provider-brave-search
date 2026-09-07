@@ -6,7 +6,7 @@ See [response semantics](../response-semantics.md), [endpoint](./place.md), and 
 
 | Field path | Vendor type | Meaning / interpretation |
 |---|---|---|
-| `type` | `string?` | Vendor field; semantic details/units are not specified in the fetched reference. |
+| `type` | `string?` | The [Place guide](https://api-dashboard.search.brave.com/documentation/services/place-search/index.html.md) specifies `locations` as the top-level discriminator; future tags remain accepted by the permissive schema. |
 | `query` | `object?` | Query metadata object, or corrected/completed phrase on suggestion/spellcheck items. |
 | `query.original` | `string` | Original user phrase (or original asset URL within a thumbnail). |
 | `query.altered` | `string?` | Spelling-corrected phrase actually used upstream. |

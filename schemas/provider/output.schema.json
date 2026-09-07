@@ -169,11 +169,56 @@
     "provenance",
     "truncated"
   ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": { "const": "links" }
+        }
+      },
+      "then": {
+        "properties": {
+          "operation": {
+            "enum": ["web", "context", "news", "images", "videos", "place", "local-pois"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": { "const": "relevant" }
+        }
+      },
+      "then": {
+        "properties": {
+          "operation": { "enum": ["web", "news", "context"] }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": { "const": "page-text" }
+        }
+      },
+      "then": {
+        "properties": {
+          "operation": { "const": "context" }
+        }
+      }
+    }
+  ],
   "oneOf": [
     {
       "required": [
         "records"
       ],
+      "properties": {
+        "mode": {
+          "enum": ["links", "brief", "relevant", "page-text"]
+        }
+      },
       "not": {
         "anyOf": [
           {

@@ -10,7 +10,8 @@
         "string",
         "null"
       ],
-      "description": "Vendor field; semantic details/units are not specified in the fetched reference."
+      "description": "The Place Search guide specifies locations as the top-level discriminator; future tags remain accepted by this permissive schema.",
+      "x-source": "https://api-dashboard.search.brave.com/documentation/services/place-search/index.html.md"
     },
     "query": {
       "type": [
