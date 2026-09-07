@@ -1,0 +1,390 @@
+{
+  "notice": "Every response and identifier is synthetic. Fixture schemas are local; no vendor network is used.",
+  "fixtures": [
+    {
+      "file": "examples/web.minimal.provider.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/web.minimal.request.json",
+      "schema": "schemas/upstream/web.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/web.rich.provider.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/web.rich.request.json",
+      "schema": "schemas/upstream/web.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/web.response.json",
+      "schema": "schemas/upstream/web.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/local-pois.minimal.provider.json",
+      "schema": "schemas/provider/local-pois.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/local-pois.minimal.request.json",
+      "schema": "schemas/upstream/local-pois.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/local-pois.rich.provider.json",
+      "schema": "schemas/provider/local-pois.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/local-pois.rich.request.json",
+      "schema": "schemas/upstream/local-pois.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/local-pois.response.json",
+      "schema": "schemas/upstream/local-pois.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/poi-descriptions.minimal.provider.json",
+      "schema": "schemas/provider/poi-descriptions.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/poi-descriptions.minimal.request.json",
+      "schema": "schemas/upstream/poi-descriptions.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/poi-descriptions.rich.provider.json",
+      "schema": "schemas/provider/poi-descriptions.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/poi-descriptions.rich.request.json",
+      "schema": "schemas/upstream/poi-descriptions.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/poi-descriptions.response.json",
+      "schema": "schemas/upstream/poi-descriptions.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/rich.minimal.provider.json",
+      "schema": "schemas/provider/rich.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/rich.minimal.request.json",
+      "schema": "schemas/upstream/rich.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/rich.rich.provider.json",
+      "schema": "schemas/provider/rich.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/rich.rich.request.json",
+      "schema": "schemas/upstream/rich.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/rich.response.json",
+      "schema": "schemas/upstream/rich.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/context.minimal.provider.json",
+      "schema": "schemas/provider/context.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/context.minimal.request.json",
+      "schema": "schemas/upstream/context.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/context.rich.provider.json",
+      "schema": "schemas/provider/context.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/context.rich.request.json",
+      "schema": "schemas/upstream/context.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/context.response.json",
+      "schema": "schemas/upstream/context.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/context.minimal.post.request.json",
+      "schema": "schemas/upstream/context.post.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/context.rich.post.request.json",
+      "schema": "schemas/upstream/context.post.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/place.minimal.provider.json",
+      "schema": "schemas/provider/place.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/place.minimal.request.json",
+      "schema": "schemas/upstream/place.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/place.rich.provider.json",
+      "schema": "schemas/provider/place.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/place.rich.request.json",
+      "schema": "schemas/upstream/place.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/place.response.json",
+      "schema": "schemas/upstream/place.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/news.minimal.provider.json",
+      "schema": "schemas/provider/news.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/news.minimal.request.json",
+      "schema": "schemas/upstream/news.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/news.rich.provider.json",
+      "schema": "schemas/provider/news.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/news.rich.request.json",
+      "schema": "schemas/upstream/news.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/news.response.json",
+      "schema": "schemas/upstream/news.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/videos.minimal.provider.json",
+      "schema": "schemas/provider/videos.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/videos.minimal.request.json",
+      "schema": "schemas/upstream/videos.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/videos.rich.provider.json",
+      "schema": "schemas/provider/videos.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/videos.rich.request.json",
+      "schema": "schemas/upstream/videos.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/videos.response.json",
+      "schema": "schemas/upstream/videos.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/images.minimal.provider.json",
+      "schema": "schemas/provider/images.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/images.minimal.request.json",
+      "schema": "schemas/upstream/images.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/images.rich.provider.json",
+      "schema": "schemas/provider/images.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/images.rich.request.json",
+      "schema": "schemas/upstream/images.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/images.response.json",
+      "schema": "schemas/upstream/images.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/suggest.minimal.provider.json",
+      "schema": "schemas/provider/suggest.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/suggest.minimal.request.json",
+      "schema": "schemas/upstream/suggest.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/suggest.rich.provider.json",
+      "schema": "schemas/provider/suggest.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/suggest.rich.request.json",
+      "schema": "schemas/upstream/suggest.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/suggest.response.json",
+      "schema": "schemas/upstream/suggest.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/spellcheck.minimal.provider.json",
+      "schema": "schemas/provider/spellcheck.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/spellcheck.minimal.request.json",
+      "schema": "schemas/upstream/spellcheck.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/spellcheck.rich.provider.json",
+      "schema": "schemas/provider/spellcheck.input.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/spellcheck.rich.request.json",
+      "schema": "schemas/upstream/spellcheck.request.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/spellcheck.response.json",
+      "schema": "schemas/upstream/spellcheck.response.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/upstream-error.json",
+      "schema": "schemas/upstream/error.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/provider-output.json",
+      "schema": "schemas/provider/output.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/provider-raw-output.json",
+      "schema": "schemas/provider/output.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/provider-error-output.json",
+      "schema": "schemas/provider/output.schema.json",
+      "valid": true
+    },
+    {
+      "file": "examples/invalid/web-empty.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/web-count.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/web-offset.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/images-offset.json",
+      "schema": "schemas/provider/images.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/images-moderate.json",
+      "schema": "schemas/provider/images.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/place-conflict.json",
+      "schema": "schemas/provider/place.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/place-unpaired.json",
+      "schema": "schemas/provider/place.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/web-legacy-goggles.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/web-summary.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/web-filter.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/context-tokens.json",
+      "schema": "schemas/provider/context.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/context-goggles.json",
+      "schema": "schemas/provider/context.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/local-empty-ids.json",
+      "schema": "schemas/provider/local-pois.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/raw-fields-in-brief.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/guest-key.json",
+      "schema": "schemas/provider/web.input.schema.json",
+      "valid": false
+    },
+    {
+      "file": "examples/invalid/context-get-query-and-body.json",
+      "schema": "schemas/upstream/context.post.request.schema.json",
+      "valid": false
+    }
+  ]
+}

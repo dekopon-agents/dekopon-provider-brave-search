@@ -1,0 +1,9 @@
+{
+  "operation": "web",
+  "native": {
+    "q": "garden"
+  },
+  "headers": {
+    "x-subscription-token": "NOT-A-KEY-SYNTHETIC-FORBIDDEN-INPUT"
+  }
+}

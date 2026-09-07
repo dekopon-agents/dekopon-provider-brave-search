@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Autosuggest proposed provider input (not implemented)",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "const": "suggest"
+    },
+    "native": {
+      "type": "object",
+      "properties": {
+        "q": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "description": "Search phrase; nonempty, at most 400 characters and 50 words where required. Place Search also accepts omission or an empty phrase.",
+          "x-vendor-constraints": ""
+        },
+        "lang": {
+          "type": "string",
+          "enum": [
+            "ar",
+            "eu",
+            "bn",
+            "bg",
+            "ca",
+            "zh-hans",
+            "zh-hant",
+            "hr",
+            "cs",
+            "da",
+            "nl",
+            "en",
+            "en-gb",
+            "et",
+            "fi",
+            "fr",
+            "gl",
+            "de",
+            "el",
+            "gu",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "it",
+            "ja",
+            "jp",
+            "kn",
+            "ko",
+            "lv",
+            "lt",
+            "ms",
+            "ml",
+            "mr",
+            "nb",
+            "pl",
+            "pt-br",
+            "pt-pt",
+            "pa",
+            "ro",
+            "ru",
+            "sr",
+            "sk",
+            "sl",
+            "es",
+            "sv",
+            "ta",
+            "te",
+            "th",
+            "tr",
+            "uk",
+            "vi"
+          ],
+          "default": "en",
+          "description": "Language hint for completion or spelling, using the listed language codes.",
+          "x-vendor-constraints": "`ar`, `eu`, `bn`, `bg`, `ca`, `zh-hans`, `zh-hant`, `hr`, `cs`, `da`, `nl`, `en`, `en-gb`, `et`, `fi`, `fr`, `gl`, `de`, `el`, `gu`, `he`, `hi`, `hu`, `is`, `it`, `ja`, `jp`, `kn`, `ko`, `lv`, `lt`, `ms`, `ml`, `mr`, `nb`, `pl`, `pt-br`, `pt-pt`, `pa`, `ro`, `ru`, `sr`, `sk`, `sl`, `es`, `sv`, `ta`, `te`, `th`, `tr`, `uk`, `vi`; default `en`"
+        },
+        "country": {
+          "type": "string",
+          "enum": [
+            "AR",
+            "AU",
+            "AT",
+            "BE",
+            "BR",
+            "CA",
+            "CL",
+            "DK",
+            "FI",
+            "FR",
+            "DE",
+            "GR",
+            "HK",
+            "IN",
+            "ID",
+            "IT",
+            "JP",
+            "KR",
+            "MY",
+            "MX",
+            "NL",
+            "NZ",
+            "NO",
+            "CN",
+            "PL",
+            "PT",
+            "PH",
+            "RU",
+            "SA",
+            "ZA",
+            "ES",
+            "SE",
+            "CH",
+            "TW",
+            "TR",
+            "GB",
+            "US",
+            "ALL"
+          ],
+          "default": "US",
+          "description": "Result-country selection using the listed country codes; ALL means worldwide. For suggest/spellcheck it is a ranking hint, not a hard geographic boundary.",
+          "x-vendor-constraints": "`AR`, `AU`, `AT`, `BE`, `BR`, `CA`, `CL`, `DK`, `FI`, `FR`, `DE`, `GR`, `HK`, `IN`, `ID`, `IT`, `JP`, `KR`, `MY`, `MX`, `NL`, `NZ`, `NO`, `CN`, `PL`, `PT`, `PH`, `RU`, `SA`, `ZA`, `ES`, `SE`, `CH`, `TW`, `TR`, `GB`, `US`, `ALL`; default `US`"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1.0,
+          "maximum": 20.0,
+          "default": 5,
+          "description": "Requested result ceiling, not a guaranteed number; Web applies it only to web.results, Context uses it for candidate selection.",
+          "x-vendor-constraints": "`1`-`20`; default `5`"
+        },
+        "rich": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enrich autocomplete suggestions; requires a paid autosuggest subscription.",
+          "x-vendor-constraints": "default `false`"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "q"
+      ]
+    },
+    "localization": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "output": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "raw",
+            "brief"
+          ],
+          "default": "brief"
+        },
+        "max_results": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200,
+          "default": 10
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 262144,
+          "default": 32768
+        },
+        "fields": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^/"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "fields"
+            ]
+          },
+          "then": {
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "const": "raw"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "operation",
+    "native"
+  ]
+}

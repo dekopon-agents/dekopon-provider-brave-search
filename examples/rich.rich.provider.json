@@ -1,0 +1,11 @@
+{
+  "operation": "rich",
+  "native": {
+    "callback_key": "synthetic-key-01"
+  },
+  "output": {
+    "mode": "raw",
+    "max_results": 10,
+    "max_bytes": 32768
+  }
+}

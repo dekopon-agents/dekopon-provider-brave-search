@@ -1,0 +1,10 @@
+{
+  "type": "ErrorResponse",
+  "error": {
+    "id": "synthetic-error-01",
+    "status": 429,
+    "code": "SYNTHETIC_RATE_LIMIT",
+    "detail": "Synthetic quota rejection."
+  },
+  "time": 1788739200
+}

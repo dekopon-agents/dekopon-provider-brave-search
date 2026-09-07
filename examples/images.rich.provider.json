@@ -1,0 +1,16 @@
+{
+  "operation": "images",
+  "native": {
+    "q": "orbital gardens",
+    "country": "GB",
+    "search_lang": "en",
+    "count": 12,
+    "safesearch": "strict",
+    "spellcheck": false
+  },
+  "output": {
+    "mode": "raw",
+    "max_results": 10,
+    "max_bytes": 32768
+  }
+}

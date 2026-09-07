@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LLM Context upstream 200 documented-shape schema",
+  "description": "All fetched reference 200 field paths are represented; guide-only Context metadata is added. Unknown properties are allowed, and optional reference fields allow null. Requiredness is intentionally not enforced because these are variable vendor models, not exhaustive validation.",
+  "x-source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md",
+  "type": "object",
+  "properties": {
+    "grounding": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "generic": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Source/page URL in result records; URL meaning follows the enclosing model (image properties and profiles differ)."
+              },
+              "title": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Title metadata/value within this model."
+              },
+              "snippets": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "description": "Query-selected extracted chunks; a string may itself contain serialized structured data."
+              }
+            },
+            "additionalProperties": true
+          },
+          "description": "Generic collection."
+        },
+        "poi": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Name metadata/value within this model."
+            },
+            "url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Source/page URL in result records; URL meaning follows the enclosing model (image properties and profiles differ)."
+            },
+            "title": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Title metadata/value within this model."
+            },
+            "snippets": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Query-selected extracted chunks; a string may itself contain serialized structured data."
+            }
+          },
+          "additionalProperties": true,
+          "description": "Poi metadata/value within this model."
+        },
+        "map": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Name metadata/value within this model."
+              },
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Source/page URL in result records; URL meaning follows the enclosing model (image properties and profiles differ)."
+              },
+              "title": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Title metadata/value within this model."
+              },
+              "snippets": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "description": "Query-selected extracted chunks; a string may itself contain serialized structured data."
+              }
+            },
+            "additionalProperties": true
+          },
+          "description": "Map collection."
+        }
+      },
+      "additionalProperties": true,
+      "description": "Context passages grouped as generic web, local POI and map material."
+    },
+    "sources": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {},
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "age": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "site_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "favicon": {},
+          "thumbnail": {},
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Context source metadata dictionary keyed by source URL."
+    }
+  },
+  "additionalProperties": true
+}

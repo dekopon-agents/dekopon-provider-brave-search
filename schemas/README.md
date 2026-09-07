@@ -1,0 +1,23 @@
+# Schema boundaries
+
+All schemas use JSON Schema draft 2020-12. They are authored documentation contracts, not vendor OpenAPI exports and not a shipped provider manifest.
+
+- `upstream/*.request.schema.json`: decoded GET query/header objects. All reference controls appear, plus documented guide additions. Real HTTP query/header values are encoded strings; the decoded schema preserves reference scalar types. Broker authentication is required on a real request but deliberately **not required in offline fixtures**. No fixture supplies a usable key. See [encoding](../docs/request-controls.md).
+- [Context POST request](upstream/context.post.request.schema.json): a `body` object representing exactly the transmitted JSON and separate headers. Unlike GET, the decoded body uses guide-documented boolean/null enable_local. A wrapper with both query and body is rejected.
+- `upstream/*.response.schema.json`: recursive **documented-shape** 200 models for all 4,630 fetched reference paths, with Context guide additions. Properties are open, requiredness is not enforced, `any` is unconstrained, and optional reference fields conservatively allow null. This is useful structural checking, **not exhaustive vendor response validation**. Every nested field appears in the endpoint's response catalog.
+- [Upstream errors](upstream/error.schema.json): common error shape; integer/string status accepts the reference's type/prose conflict. Non-JSON transport errors are outside this shape.
+- `provider/*.input.schema.json`: proposed closed, per-operation typed inputs. No generic arbitrary URL/headers/body. Unsupported deprecated aliases are explicitly forbidden, not dropped. Output controls have their own namespace and do not override native defaults. Valid schemas are not proof the host enforces them.
+- [Provider output](provider/output.schema.json): proposed normalized/raw/error envelope, distinct from upstream. Exact encoded byte ceilings are a future runtime obligation, not a JSON Schema maxLength trick.
+- [Coverage](coverage.schema.json): validates the [machine-readable inventory](../coverage.json). Each endpoint/method/location and nested request item maps to docs, a resolvable schema pointer and planned behavior. Inventory supported/beta means planned, never currently installed.
+
+## Validation scope
+
+Run `.venv/bin/python scripts/validate_docs.py` after installing [pinned dependencies](../requirements-dev.txt). It checks standalone JSON (including duplicate keys/nonfinite constants), all JSON fences, draft schema well-formedness, every example against its declared schema, local Markdown files/headings, coverage/schema JSON Pointers, request-field coverage and response catalog counts. It makes **no network calls**. Dependency installation in CI uses the package index; validation does not use vendor network or credentials.
+
+Examples have a [fixture manifest](../examples/manifest.json); valid and deliberately invalid files are explicitly distinguished. Sixteen invalid fixtures cover missing/nonempty query constraints, count/offset bounds, unsupported Image pagination/safety, conflicting/unpaired place coordinates, deprecated/deferred controls, unknown result filters, Context token/Goggles limits, empty IDs, raw-only fields, forbidden guest-header inputs and mixed Context wire locations.
+
+Schema-enforced conditions include required fields, scalar types, listed enum values, integer ranges, Goggles/ID array sizes, closed provider namespaces, deprecated/deferred option rejection, Place coordinate pairing/location conflicts, and raw-only field selection. Place's conflict/pairing rule is a **proposed conservative provider rule**, not an experimentally verified vendor rejection.
+
+Documentation-only/runtime checks: q's 50-word limit; calendar-valid ordered freshness ranges; numeric ranges/format of string coordinates/radius; header CR/LF and device identity safety; full JSON Pointer escape semantics; operator/Goggles DSL semantics and registration; entitlement; temporary-ID expiry; mutually contradictory operator/native preferences; UTF-8 exact URI/body/output bytes; metadata clipping; returned rich attribution; effective native HTTP/decompression ceilings; live type/nullable/required guarantees. The validator does not claim these pass. No vendor default is automatically inserted by jsonschema.
+
+Source changes must be reviewed and reconciled in [sources](../docs/sources.md), schemas, catalogs, coverage and fixtures together. The ignored authoring scratch is not a build dependency. CI validates the committed snapshot without regenerating from vendor pages.

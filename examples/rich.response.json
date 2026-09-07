@@ -1,0 +1,17 @@
+{
+  "type": "rich",
+  "results": [
+    {
+      "type": "rich",
+      "subtype": "calculator",
+      "provider": {
+        "name": "Example calculator",
+        "url": "https://example.com/calculator"
+      },
+      "calculator": {
+        "expression": "2+2",
+        "answer": 4
+      }
+    }
+  ]
+}
