@@ -20,7 +20,8 @@ struct Brave;
 const ORIGIN: &str = "https://api.search.brave.com";
 // The broker owns authorization. In particular the guest cannot supply X-Subscription-Token.
 const MAX_TEXT: usize = 4096;
-const MAX_QUERY: usize = 2048;
+const MAX_QUERY: usize = 400;
+const MAX_QUERY_WORDS: usize = 50;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Kind {
@@ -110,6 +111,10 @@ const CONTEXT: &[Field] = &[
     t("country"),
     t("search_lang"),
     n("count"),
+    c("safesearch", SAFE),
+    b("spellcheck"),
+    t("freshness"),
+    b("enable_source_metadata"),
     n("maximum_number_of_urls"),
     n("maximum_number_of_tokens"),
     n("maximum_number_of_snippets"),
@@ -197,7 +202,7 @@ const OPS: &[Operation] = &[
     Operation {
         word: "web",
         path: "/res/v1/web/search",
-        post: true,
+        post: false,
         query: true,
         fields: WEB,
         goggles: true,
@@ -206,7 +211,7 @@ const OPS: &[Operation] = &[
     Operation {
         word: "news",
         path: "/res/v1/news/search",
-        post: true,
+        post: false,
         query: true,
         fields: NEWS,
         goggles: true,
@@ -224,7 +229,7 @@ const OPS: &[Operation] = &[
     Operation {
         word: "videos",
         path: "/res/v1/videos/search",
-        post: true,
+        post: false,
         query: true,
         fields: VIDEOS,
         goggles: false,
@@ -326,7 +331,7 @@ impl Provider for Brave {
             command_words: vec!["bx".into()],
             capabilities: OPS.iter().copied().map(|op| {
                 let mut properties = Map::new();
-                if op.query || op.word == "places" { properties.insert("q".into(), json!({"type":"string", "minLength":1, "maxLength":MAX_QUERY})); }
+                if op.query || op.word == "places" { properties.insert("q".into(), json!({"type":"string", "minLength":1, "maxLength":MAX_QUERY, "description":"At most 50 whitespace-delimited words"})); }
                 if matches!(op.word, "pois" | "descriptions") { properties.insert("ids".into(), json!({"type":"array", "items":{"type":"string"}, "minItems":1, "maxItems":20})); }
                 for field in fields(op) {
                     let schema = match field.kind { Kind::Text => json!({"type":"string"}), Kind::Number => { let (min, max) = number_bounds(op, field.name); json!({"type":"integer", "minimum":min, "maximum":max}) }, Kind::Boolean => json!({"type":"boolean"}), Kind::List => if field.name == "goggles" { json!({"type":"array", "items":{"type":"string"}, "minItems":1, "maxItems":3}) } else { json!({"type":"array", "items":{"type":"string"}}) }, Kind::Choice(choices) => json!({"type":"string", "enum":choices}) };
@@ -412,7 +417,7 @@ fn tree() -> Command {
                 arg = arg.visible_alias("threshold");
             }
             if field.name == "longitude" {
-                arg = arg.requires("latitude");
+                arg = arg.requires("latitude").allow_hyphen_values(true);
             }
             if field.name == "goggles" {
                 arg = arg.conflicts_with_all(["include_site", "exclude_site"]);
@@ -545,6 +550,23 @@ fn dispatch(
     })
 }
 
+fn decimal_degrees(value: &str, limit: f64) -> bool {
+    let digits = value.strip_prefix(['-', '+']).unwrap_or(value);
+    let valid = match digits.split_once('.') {
+        Some((whole, fraction)) => {
+            !whole.is_empty()
+                && !fraction.is_empty()
+                && whole.bytes().all(|byte| byte.is_ascii_digit())
+                && fraction.bytes().all(|byte| byte.is_ascii_digit())
+        }
+        None => !digits.is_empty() && digits.bytes().all(|byte| byte.is_ascii_digit()),
+    };
+    valid
+        && value
+            .parse::<f64>()
+            .is_ok_and(|n| n.is_finite() && n.abs() <= limit)
+}
+
 fn validate(op: Operation, input: &Value) -> Result<(), ProviderError> {
     let obj = input
         .as_object()
@@ -552,8 +574,13 @@ fn validate(op: Operation, input: &Value) -> Result<(), ProviderError> {
     for (key, value) in obj {
         if key == "q" && (op.query || op.word == "places") {
             let q = value.as_str().ok_or_else(|| usage("q must be text"))?;
-            if q.trim().is_empty() || q.len() > MAX_QUERY {
-                return Err(usage("q must be nonempty and at most 2048 bytes"));
+            if q.trim().is_empty()
+                || q.chars().count() > MAX_QUERY
+                || q.split_whitespace().count() > MAX_QUERY_WORDS
+            {
+                return Err(usage(
+                    "q must contain 1-400 characters and at most 50 words",
+                ));
             }
         } else if key == "ids" && matches!(op.word, "pois" | "descriptions") {
             let ids = value
@@ -592,7 +619,14 @@ fn validate(op: Operation, input: &Value) -> Result<(), ProviderError> {
         } else if let Some(field) = fields(op).find(|f| f.name == key) {
             let valid = match field.kind {
                 Kind::Text => value.as_str().is_some_and(|s| {
-                    !s.is_empty() && s.len() <= MAX_TEXT && !s.chars().any(char::is_control)
+                    !s.is_empty()
+                        && s.len() <= MAX_TEXT
+                        && !s.chars().any(char::is_control)
+                        && match field.name {
+                            "lat" | "latitude" => decimal_degrees(s, 90.0),
+                            "long" | "longitude" => decimal_degrees(s, 180.0),
+                            _ => true,
+                        }
                 }),
                 Kind::Choice(choices) => value.as_str().is_some_and(|s| choices.contains(&s)),
                 Kind::Number => {
@@ -633,10 +667,17 @@ fn validate(op: Operation, input: &Value) -> Result<(), ProviderError> {
     {
         return Err(usage("places requires query or location"));
     }
-    for (longitude, latitude) in [("long", "lat"), ("longitude", "latitude")] {
-        if obj.contains_key(longitude) && !obj.contains_key(latitude) {
-            return Err(usage(format!("{longitude} requires {latitude}")));
+    if op.word == "places" {
+        let latitude = obj.contains_key("latitude");
+        let longitude = obj.contains_key("longitude");
+        if latitude != longitude {
+            return Err(usage("places requires both latitude and longitude"));
         }
+        if obj.contains_key("location") && latitude {
+            return Err(usage("places location and coordinates are alternatives"));
+        }
+    } else if obj.contains_key("long") && !obj.contains_key("lat") {
+        return Err(usage("long requires lat"));
     }
     if obj.contains_key("goggles")
         && (obj.contains_key("include_site") || obj.contains_key("exclude_site"))
@@ -873,17 +914,58 @@ mod tests {
             other => panic!("not proposed: {other:?}"),
         }
     }
+    fn response_fixture(op: &str) -> Value {
+        let mut value = match op {
+            "context" => {
+                json!({"grounding":{"generic":[{"url":"https://example.test/first","snippets":["first"]},{"url":"https://example.test/second","snippets":["second"]}]},"sources":{"https://example.test/first":{"site_name":"Example","futureSource":true}}})
+            }
+            "web" => {
+                json!({"type":"search","web":{"results":[{"url":"https://example.test/first"},{"url":"https://example.test/second","futureResult":1} ]},"query":{"original":"test"}})
+            }
+            "news" => {
+                json!({"type":"news","results":[{"url":"https://example.test/news-first"},{"url":"https://example.test/news-second"}]})
+            }
+            "images" => {
+                json!({"type":"images","results":[{"url":"https://example.test/source","thumbnail":{"src":"https://example.test/thumb"},"properties":{"url":"https://example.test/image"}}]})
+            }
+            "videos" => {
+                json!({"type":"videos","results":[{"url":"https://example.test/video","video":{"duration":"PT1M"}}]})
+            }
+            "places" => {
+                json!({"type":"locations","results":[{"url":"https://example.test/place","id":"poi-1","coordinates":[37.0,-122.0]}]})
+            }
+            "pois" => {
+                json!({"type":"local_pois","results":[{"id":"poi-1","url":"https://example.test/place","postal_address":{"city":"Example"}}]})
+            }
+            "descriptions" => {
+                json!({"type":"local_descriptions","results":[{"id":"poi-1","description":"Synthetic description"}]})
+            }
+            "suggest" => json!({"type":"suggest","results":[{"query":"test suggestion"}]}),
+            "spellcheck" => json!({"type":"spellcheck","results":[{"query":"corrected test"}]}),
+            "answers" => {
+                json!({"choices":[{"message":{"content":"Synthetic answer","citations":[{"url":"https://example.test/first"},{"url":"https://example.test/second"}]}}],"usage":{"total_tokens":21}})
+            }
+            _ => panic!("unknown fixture: {op}"),
+        };
+        value["futureResponse"] = json!({"added":true});
+        value
+    }
     fn request(op: &str, input: Value) -> Request {
         let mut captured = None;
-        let _ = invoke_with(&format!("bx.{op}").parse().unwrap(), input, |req| {
+        let expected = response_fixture(op);
+        let output = invoke_with(&format!("bx.{op}").parse().unwrap(), input, |req| {
             captured = Some(req);
             Ok(Response {
                 status: 200,
                 headers: vec![],
-                body: br#"{"results":[],"future":{"x":1}}"#.to_vec(),
+                body: serde_json::to_vec(&expected).unwrap(),
             })
         })
         .unwrap();
+        assert_eq!(
+            output, expected,
+            "{op} response must preserve its distinct shape and extensions"
+        );
         captured.unwrap()
     }
     #[test]
@@ -930,8 +1012,21 @@ mod tests {
             assert_eq!(cap, id(*op));
             assert!(manifest.capabilities.iter().any(|c| c.id.as_str() == cap));
             let req = request(op.word, input);
-            assert!(req.uri.starts_with(&format!("{ORIGIN}{}", op.path)));
+            let expected_uri = format!(
+                "{ORIGIN}{}{}",
+                op.path,
+                match op.word {
+                    "places" => "?location=NYC",
+                    "pois" | "descriptions" => "?ids=poi-1",
+                    _ if op.post => "",
+                    _ => "?q=test",
+                }
+            );
+            assert_eq!(req.uri, expected_uri, "{}", op.word);
             assert_eq!(req.method, if op.post { "POST" } else { "GET" });
+            if !op.post {
+                assert!(req.body.is_empty(), "{} GET must be bodyless", op.word);
+            }
             assert!(
                 !req.headers
                     .iter()
@@ -964,18 +1059,21 @@ mod tests {
             None,
         );
         let req = request("web", input);
-        let body: Value = serde_json::from_slice(&req.body).unwrap();
-        assert_eq!(body["result_filter"], "web,news");
-        assert_eq!(body["goggles"], json!(["$discard\n$boost,site=docs.rs"]));
-        assert_eq!(body["operators"], false);
+        assert_eq!(req.method, "GET");
+        assert!(req.body.is_empty());
+        assert_eq!(
+            req.uri,
+            "https://api.search.brave.com/res/v1/web/search?count=7&goggles=%24discard%0A%24boost%2Csite%3Ddocs.rs&operators=false&q=rust&result_filter=web%2Cnews"
+        );
         let (_, input) = proposed(&["web", "rust", "--result-filter", "web,news"], None);
-        let body: Value = serde_json::from_slice(&request("web", input).body).unwrap();
-        assert_eq!(body["result_filter"], "web,news");
-        let body: Value =
-            serde_json::from_slice(&request("web", json!({"q":"x", "count":20, "offset":9})).body)
-                .unwrap();
-        assert_eq!(body["count"], 20);
-        assert_eq!(body["offset"], 9);
+        assert_eq!(
+            request("web", input).uri,
+            "https://api.search.brave.com/res/v1/web/search?q=rust&result_filter=web%2Cnews"
+        );
+        assert_eq!(
+            request("web", json!({"q":"x", "count":20, "offset":9})).uri,
+            "https://api.search.brave.com/res/v1/web/search?count=20&offset=9&q=x"
+        );
         assert!(req.headers.iter().any(|h| h.name == "X-Loc-Lat"));
         let (_, input) = proposed(
             &["answers", "-", "--no-stream"],
@@ -1083,6 +1181,13 @@ mod tests {
                 "4096",
                 "--threshold",
                 "disabled",
+                "--safesearch",
+                "strict",
+                "--spellcheck",
+                "false",
+                "--freshness",
+                "pw",
+                "--enable-source-metadata",
                 "--goggles",
                 "$boost=3,site=docs.rs",
                 "--goggles",
@@ -1095,6 +1200,35 @@ mod tests {
         let body: Value = serde_json::from_slice(&req.body).unwrap();
         assert_eq!(body["maximum_number_of_tokens"], 4096);
         assert_eq!(body["context_threshold_mode"], "disabled");
+        assert_eq!(body["safesearch"], "strict");
+        assert_eq!(body["spellcheck"], false);
+        assert_eq!(body["freshness"], "pw");
+        assert_eq!(body["enable_source_metadata"], true);
+        let context = Brave::manifest()
+            .capabilities
+            .into_iter()
+            .find(|c| c.id.as_str() == "bx.context")
+            .unwrap();
+        for name in [
+            "safesearch",
+            "spellcheck",
+            "freshness",
+            "enable_source_metadata",
+        ] {
+            assert!(
+                context.input_schema["properties"].get(name).is_some(),
+                "missing {name}"
+            );
+        }
+        let direct = request(
+            "context",
+            json!({"q":"test", "safesearch":"off", "spellcheck":true, "freshness":"pd", "enable_source_metadata":false}),
+        );
+        let direct_body: Value = serde_json::from_slice(&direct.body).unwrap();
+        assert_eq!(direct_body["safesearch"], "off");
+        assert_eq!(direct_body["spellcheck"], true);
+        assert_eq!(direct_body["freshness"], "pd");
+        assert_eq!(direct_body["enable_source_metadata"], false);
         assert_eq!(
             body["goggles"],
             json!(["$boost=3,site=docs.rs", "$downrank,site=example.com"])
@@ -1118,9 +1252,48 @@ mod tests {
             ],
             None,
         );
-        let body: Value = serde_json::from_slice(&request("news", input).body).unwrap();
-        assert_eq!(body["goggles"], json!(["$discard,site=example.com"]));
-        assert_eq!(body["spellcheck"], false);
+        let req = request("news", input);
+        assert_eq!(req.method, "GET");
+        assert!(req.body.is_empty());
+        assert_eq!(
+            req.uri,
+            "https://api.search.brave.com/res/v1/news/search?freshness=pw&goggles=%24discard%2Csite%3Dexample.com&q=x&spellcheck=false"
+        );
+        let (_, input) = proposed(
+            &[
+                "news",
+                "x",
+                "--goggles",
+                "$boost,site=docs.rs",
+                "--goggles",
+                "$downrank,site=example.com",
+            ],
+            None,
+        );
+        assert_eq!(
+            request("news", input).uri,
+            "https://api.search.brave.com/res/v1/news/search?goggles=%24boost%2Csite%3Ddocs.rs&goggles=%24downrank%2Csite%3Dexample.com&q=x"
+        );
+        let (_, input) = proposed(
+            &[
+                "videos",
+                "cats & dogs",
+                "--offset",
+                "2",
+                "--operators",
+                "false",
+                "--spellcheck",
+                "false",
+            ],
+            None,
+        );
+        let req = request("videos", input);
+        assert_eq!(req.method, "GET");
+        assert!(req.body.is_empty());
+        assert_eq!(
+            req.uri,
+            "https://api.search.brave.com/res/v1/videos/search?offset=2&operators=false&q=cats%20%26%20dogs&spellcheck=false"
+        );
     }
     #[test]
     fn invalid_combinations_refuse_before_transport() {
@@ -1196,6 +1369,140 @@ mod tests {
                 .is_err()
             );
             assert!(!called);
+        }
+    }
+    #[test]
+    fn query_and_location_validation_refuse_before_transport() {
+        let valid_unicode = "é".repeat(400);
+        let (_, input) = proposed(&["web", &valid_unicode], None);
+        assert_eq!(input["q"], valid_unicode);
+        assert_eq!(
+            Brave::manifest()
+                .capabilities
+                .iter()
+                .find(|c| c.id.as_str() == "bx.web")
+                .unwrap()
+                .input_schema["properties"]["q"]["maxLength"],
+            400
+        );
+        let too_many_words = vec!["word"; 51].join(" ");
+        for q in ["a".repeat(401), too_many_words] {
+            for command in ["web", "context"] {
+                assert!(!matches!(
+                    run(&argv(&[command, &q]), None),
+                    Ok(CommandRun::Proposal(_))
+                ));
+                let mut called = false;
+                assert!(
+                    invoke_with(
+                        &id(*OPS.iter().find(|op| op.word == command).unwrap())
+                            .parse()
+                            .unwrap(),
+                        json!({"q":q}),
+                        |_| {
+                            called = true;
+                            unreachable!()
+                        }
+                    )
+                    .is_err()
+                );
+                assert!(!called);
+            }
+        }
+        for args in [
+            &["places", "pizza", "--latitude", "999", "--longitude", "0"][..],
+            &["places", "pizza", "--latitude", "12"],
+            &[
+                "places",
+                "pizza",
+                "--location",
+                "NYC",
+                "--latitude",
+                "12",
+                "--longitude",
+                "2",
+            ],
+            &["web", "pizza", "--lat", "91"],
+            &["pois", "id", "--lat", "0", "--long", "NaN"],
+        ] {
+            assert!(
+                !matches!(run(&argv(args), None), Ok(CommandRun::Proposal(_))),
+                "{args:?}"
+            );
+        }
+        for (operation, input) in [
+            (
+                "places",
+                json!({"q":"pizza", "latitude":"999", "longitude":"0"}),
+            ),
+            ("places", json!({"q":"pizza", "latitude":"12"})),
+            ("places", json!({"q":"pizza", "longitude":"2"})),
+            (
+                "places",
+                json!({"q":"pizza", "location":"NYC", "latitude":"12", "longitude":"2"}),
+            ),
+            (
+                "places",
+                json!({"q":"pizza", "latitude":"0", "longitude":"-181"}),
+            ),
+            ("context", json!({"q":"pizza", "lat":"1e2"})),
+            ("web", json!({"q":"pizza", "lat":"NaN"})),
+        ] {
+            let mut called = false;
+            assert!(
+                invoke_with(&format!("bx.{operation}").parse().unwrap(), input, |_| {
+                    called = true;
+                    unreachable!()
+                })
+                .is_err(),
+                "{operation}"
+            );
+            assert!(!called);
+        }
+        let (_, input) = proposed(
+            &["places", "pizza", "--latitude", "90", "--longitude", "-180"],
+            None,
+        );
+        assert_eq!(
+            request("places", input).uri,
+            "https://api.search.brave.com/res/v1/local/place_search?latitude=90&longitude=-180&q=pizza"
+        );
+    }
+    #[test]
+    fn distinct_response_shapes_preserve_order_citations_and_extensions() {
+        let context = response_fixture("context");
+        assert_eq!(
+            context["grounding"]["generic"][0]["url"],
+            "https://example.test/first"
+        );
+        assert_eq!(
+            context["grounding"]["generic"][1]["url"],
+            "https://example.test/second"
+        );
+        assert_eq!(
+            context["sources"]["https://example.test/first"]["futureSource"],
+            true
+        );
+        let images = response_fixture("images");
+        assert_ne!(
+            images["results"][0]["url"],
+            images["results"][0]["properties"]["url"]
+        );
+        let answers = response_fixture("answers");
+        assert_eq!(
+            answers["choices"][0]["message"]["citations"][0]["url"],
+            "https://example.test/first"
+        );
+        assert_eq!(
+            answers["choices"][0]["message"]["citations"][1]["url"],
+            "https://example.test/second"
+        );
+        assert_eq!(answers["usage"]["total_tokens"], 21);
+        for operation in ["places", "pois", "descriptions"] {
+            assert_eq!(response_fixture(operation)["results"][0]["id"], "poi-1");
+        }
+        for op in OPS {
+            assert_eq!(response_fixture(op.word)["futureResponse"]["added"], true);
         }
     }
     #[test]

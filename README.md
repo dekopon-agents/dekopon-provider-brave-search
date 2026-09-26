@@ -6,7 +6,7 @@ A search-only, credential-free Dekopon WASM component. Version 0.1.0. Adapted fr
 
 ## Surface
 
-`bx QUERY` is `bx context QUERY` (use `bx -- web` for an ambiguous query). `bx context`, `web`, `news`, `images`, `videos`, `places`, `pois`, `descriptions`, `suggest`, `spellcheck`, and `answers` each propose a separately grantable `bx.<command>` capability; no generic API capability exists. In the broker shell a proposal undergoes the same grant/constraint/policy check as an invocation. Invoke input uses upstream snake_case API field names, plus `q` or `ids`; the manifest lists accepted fields and types. `bx --help` and each subcommand's help show supported flags. `--result-filter` accepts comma-separated upstream values (and repeated flags), serialized as one comma-separated wire string. Repeated `--goggles` values remain distinct rulesets (at most three); `--goggles` accepts inline rules, `\\n` for a newline, or `@-` to read piped rules via the SDK's stdin (at most 4096 bytes per rule). `@file` and hosted Goggles URLs are not supported. `--include-site` and `--exclude-site` generate upstream's inline Goggles rules and cannot be mixed with explicit Goggles. Location hints are sent as fixed `X-Loc-*` headers, not arbitrary headers.
+`bx QUERY` is `bx context QUERY` (use `bx -- web` for an ambiguous query). `bx context`, `web`, `news`, `images`, `videos`, `places`, `pois`, `descriptions`, `suggest`, `spellcheck`, and `answers` each propose a separately grantable `bx.<command>` capability; no generic API capability exists. In the broker shell a proposal undergoes the same grant/constraint/policy check as an invocation. Invoke input uses upstream snake_case API field names, plus `q` or `ids`; the manifest lists accepted fields and types. `bx --help` and each subcommand's help show supported flags. `--result-filter` accepts comma-separated upstream values (and repeated flags), serialized as one comma-separated wire string. Repeated `--goggles` values remain distinct rulesets (at most three); `--goggles` accepts inline rules, `\\n` for a newline, or `@-` to read piped rules via the SDK's stdin (at most 4096 bytes per rule). `@file` and hosted Goggles URLs are not supported. `--include-site` and `--exclude-site` generate upstream's inline Goggles rules and cannot be mixed with explicit Goggles. Context also exposes `--safesearch`, `--spellcheck`, `--freshness` and `--enable-source-metadata`; News accepts Goggles. Queries are limited to 400 characters and 50 whitespace-delimited words. Place coordinates must be a finite in-range latitude/longitude pair, alternative to `--location`; location hints are sent as fixed `X-Loc-*` headers, not arbitrary headers.
 
 `bx answers QUESTION` requests **buffered** JSON (`stream: false`) by default; `--no-stream` is accepted for compatibility but redundant. `bx answers -` consumes piped JSON containing `messages` with only `role` and text `content` per message (and supported flat options); `stream` if supplied must be `false`, and mixing flags with JSON is refused. Streaming, research mode, inline citations/entities (stream-only), timeout overrides, arbitrary model parameters, configuration, base-URL/path overrides, generic `--extra`, and local files are deliberately unavailable. Server-returned citations, URLs, result order and extension fields are preserved in the JSON response; no projection or result truncation takes place. Unsupported flags/fields fail before HTTP. Upstream can change its service without notice; live acceptance is pending authenticated integration.
 
@@ -15,10 +15,10 @@ All endpoints are fixed under `https://api.search.brave.com`:
 | Capability | Method / path |
 | --- | --- |
 | `bx.context` | POST `/res/v1/llm/context` |
-| `bx.web` | POST `/res/v1/web/search` |
-| `bx.news` | POST `/res/v1/news/search` |
+| `bx.web` | GET `/res/v1/web/search` |
+| `bx.news` | GET `/res/v1/news/search` |
 | `bx.images` | GET `/res/v1/images/search` |
-| `bx.videos` | POST `/res/v1/videos/search` |
+| `bx.videos` | GET `/res/v1/videos/search` |
 | `bx.places` | GET `/res/v1/local/place_search` |
 | `bx.pois` | GET `/res/v1/local/pois` |
 | `bx.descriptions` | GET `/res/v1/local/descriptions` |
