@@ -115,7 +115,10 @@ const CONTEXT: &[Field] = &[
     n("maximum_number_of_snippets"),
     n("maximum_number_of_tokens_per_url"),
     n("maximum_number_of_snippets_per_url"),
-    c("context_threshold_mode", &["strict", "balanced", "lenient"]),
+    c(
+        "context_threshold_mode",
+        &["strict", "balanced", "lenient", "disabled"],
+    ),
     b("enable_local"),
 ];
 const IMAGES: &[Field] = &[
@@ -297,6 +300,25 @@ fn usage(msg: impl Into<String>) -> ProviderError {
     ProviderError::new("usage", msg)
 }
 
+// Limits in Brave's search endpoint references; keep model-facing schemas and native
+// validation on the same bounds. Fields without a published upper limit retain the
+// existing request ceiling, rather than borrowing another operation's count limit.
+fn number_bounds(op: Operation, field: &str) -> (u64, u64) {
+    match (op.word, field) {
+        ("web" | "suggest", "count") => (1, 20),
+        ("context" | "news" | "videos", "count") => (1, 50),
+        ("images", "count") => (1, 200),
+        ("places", "count") => (1, 100),
+        ("web" | "news" | "videos", "offset") => (0, 9),
+        ("context", "maximum_number_of_urls") => (1, 50),
+        ("context", "maximum_number_of_tokens") => (1024, 32768),
+        ("context", "maximum_number_of_snippets") => (1, 256),
+        ("context", "maximum_number_of_tokens_per_url") => (512, 8192),
+        ("context", "maximum_number_of_snippets_per_url") => (1, 100),
+        _ => (0, 100_000),
+    }
+}
+
 impl Provider for Brave {
     fn manifest() -> ProviderManifest {
         ProviderManifest { api_version: ProviderApiVersion::V1Alpha1,
@@ -304,13 +326,13 @@ impl Provider for Brave {
             command_words: vec!["bx".into()],
             capabilities: OPS.iter().copied().map(|op| {
                 let mut properties = Map::new();
-                if op.query { properties.insert("q".into(), json!({"type":"string", "minLength":1, "maxLength":MAX_QUERY})); }
+                if op.query || op.word == "places" { properties.insert("q".into(), json!({"type":"string", "minLength":1, "maxLength":MAX_QUERY})); }
                 if matches!(op.word, "pois" | "descriptions") { properties.insert("ids".into(), json!({"type":"array", "items":{"type":"string"}, "minItems":1, "maxItems":20})); }
                 for field in fields(op) {
-                    let schema = match field.kind { Kind::Text => json!({"type":"string"}), Kind::Number => json!({"type":"integer", "minimum":0}), Kind::Boolean => json!({"type":"boolean"}), Kind::List => json!({"type":"array", "items":{"type":"string"}}), Kind::Choice(choices) => json!({"type":"string", "enum":choices}) };
+                    let schema = match field.kind { Kind::Text => json!({"type":"string"}), Kind::Number => { let (min, max) = number_bounds(op, field.name); json!({"type":"integer", "minimum":min, "maximum":max}) }, Kind::Boolean => json!({"type":"boolean"}), Kind::List => if field.name == "goggles" { json!({"type":"array", "items":{"type":"string"}, "minItems":1, "maxItems":3}) } else { json!({"type":"array", "items":{"type":"string"}}) }, Kind::Choice(choices) => json!({"type":"string", "enum":choices}) };
                     properties.insert(field.name.into(), schema);
                 }
-                if op.word == "answers" { properties.insert("messages".into(), json!({"type":"array", "description":"User/assistant/system messages; explicit alternative to q"})); properties.insert("stream".into(), json!({"const":false})); }
+                if op.word == "answers" { properties.insert("messages".into(), json!({"type":"array", "minItems":1, "maxItems":32, "items":{"type":"object", "properties":{"role":{"type":"string", "enum":["user", "assistant", "system"]}, "content":{"type":"string"}}, "required":["role", "content"], "additionalProperties":false}, "description":"User/assistant/system messages; explicit alternative to q"})); properties.insert("stream".into(), json!({"const":false})); }
                 ProviderCapability { id: id(op).parse().expect("static ID"), description: format!("Brave {} (fixed {} {})", op.word, if op.post { "POST" } else { "GET" }, op.path), effect: EffectKind::ReadOnly, risk: RiskLevel::Low,
                     input_schema: json!({"type":"object", "properties": properties, "additionalProperties": false}) }
             }).collect() }
@@ -562,9 +584,10 @@ fn validate(op: Operation, input: &Value) -> Result<(), ProviderError> {
                             Some("user" | "assistant" | "system")
                         )
                         || v.get("content").and_then(Value::as_str).is_none()
+                        || v.as_object().is_none_or(|message| message.len() != 2)
                 })
             {
-                return Err(usage("messages require role and text content"));
+                return Err(usage("messages require only role and text content"));
             }
         } else if let Some(field) = fields(op).find(|f| f.name == key) {
             let valid = match field.kind {
@@ -572,11 +595,14 @@ fn validate(op: Operation, input: &Value) -> Result<(), ProviderError> {
                     !s.is_empty() && s.len() <= MAX_TEXT && !s.chars().any(char::is_control)
                 }),
                 Kind::Choice(choices) => value.as_str().is_some_and(|s| choices.contains(&s)),
-                Kind::Number => value.as_u64().is_some_and(|n| n <= 100_000),
+                Kind::Number => {
+                    let (min, max) = number_bounds(op, field.name);
+                    value.as_u64().is_some_and(|n| (min..=max).contains(&n))
+                }
                 Kind::Boolean => value.is_boolean(),
                 Kind::List => value.as_array().is_some_and(|list| {
                     !list.is_empty()
-                        && list.len() <= 20
+                        && list.len() <= if field.name == "goggles" { 3 } else { 20 }
                         && list.iter().all(|v| {
                             v.as_str()
                                 .is_some_and(|s| !s.is_empty() && s.len() <= MAX_TEXT)
@@ -769,17 +795,17 @@ where
                 .join("\n")]),
         );
     }
-    if let Some(goggles) = obj.remove("goggles") {
+    if let Some(filter) = obj.remove("result_filter") {
         obj.insert(
-            "goggles".into(),
+            "result_filter".into(),
             json!(
-                goggles
+                filter
                     .as_array()
                     .expect("validated")
                     .iter()
                     .map(|v| v.as_str().expect("validated"))
                     .collect::<Vec<_>>()
-                    .join("\n")
+                    .join(",")
             ),
         );
     }
@@ -864,6 +890,30 @@ mod tests {
     fn all_commands_and_manifest_route_to_fixed_paths() {
         let manifest = Brave::manifest();
         assert_eq!(manifest.capabilities.len(), 11);
+        let places = manifest
+            .capabilities
+            .iter()
+            .find(|c| c.id.as_str() == "bx.places")
+            .unwrap();
+        assert_eq!(
+            places.input_schema["properties"]["q"]["maxLength"],
+            MAX_QUERY
+        );
+        let answers = manifest
+            .capabilities
+            .iter()
+            .find(|c| c.id.as_str() == "bx.answers")
+            .unwrap();
+        assert_eq!(
+            answers.input_schema["properties"]["messages"]["items"]["additionalProperties"],
+            false
+        );
+        let (_, place_input) = proposed(&["places", "coffee", "--location", "NYC"], None);
+        assert_eq!(place_input["q"], "coffee");
+        assert_eq!(
+            request("places", place_input).uri,
+            "https://api.search.brave.com/res/v1/local/place_search?location=NYC&q=coffee"
+        );
         for op in OPS {
             let mut args = vec![op.word];
             if op.query {
@@ -915,9 +965,17 @@ mod tests {
         );
         let req = request("web", input);
         let body: Value = serde_json::from_slice(&req.body).unwrap();
-        assert_eq!(body["result_filter"], json!(["web", "news"]));
-        assert_eq!(body["goggles"], "$discard\n$boost,site=docs.rs");
+        assert_eq!(body["result_filter"], "web,news");
+        assert_eq!(body["goggles"], json!(["$discard\n$boost,site=docs.rs"]));
         assert_eq!(body["operators"], false);
+        let (_, input) = proposed(&["web", "rust", "--result-filter", "web,news"], None);
+        let body: Value = serde_json::from_slice(&request("web", input).body).unwrap();
+        assert_eq!(body["result_filter"], "web,news");
+        let body: Value =
+            serde_json::from_slice(&request("web", json!({"q":"x", "count":20, "offset":9})).body)
+                .unwrap();
+        assert_eq!(body["count"], 20);
+        assert_eq!(body["offset"], 9);
         assert!(req.headers.iter().any(|h| h.name == "X-Loc-Lat"));
         let (_, input) = proposed(
             &["answers", "-", "--no-stream"],
@@ -1024,9 +1082,11 @@ mod tests {
                 "--max-tokens",
                 "4096",
                 "--threshold",
-                "strict",
+                "disabled",
                 "--goggles",
                 "$boost=3,site=docs.rs",
+                "--goggles",
+                "$downrank,site=example.com",
             ],
             None,
         );
@@ -1034,14 +1094,17 @@ mod tests {
         assert_eq!(req.uri, "https://api.search.brave.com/res/v1/llm/context");
         let body: Value = serde_json::from_slice(&req.body).unwrap();
         assert_eq!(body["maximum_number_of_tokens"], 4096);
-        assert_eq!(body["context_threshold_mode"], "strict");
-        assert_eq!(body["goggles"], "$boost=3,site=docs.rs");
+        assert_eq!(body["context_threshold_mode"], "disabled");
+        assert_eq!(
+            body["goggles"],
+            json!(["$boost=3,site=docs.rs", "$downrank,site=example.com"])
+        );
         let (_, input) = proposed(
             &["context", "x", "--goggles", "@-"],
             Some("$boost=3,site=docs.rs"),
         );
         let body: Value = serde_json::from_slice(&request("context", input).body).unwrap();
-        assert_eq!(body["goggles"], "$boost=3,site=docs.rs");
+        assert_eq!(body["goggles"], json!(["$boost=3,site=docs.rs"]));
         let (_, input) = proposed(
             &[
                 "news",
@@ -1056,7 +1119,7 @@ mod tests {
             None,
         );
         let body: Value = serde_json::from_slice(&request("news", input).body).unwrap();
-        assert_eq!(body["goggles"], "$discard,site=example.com");
+        assert_eq!(body["goggles"], json!(["$discard,site=example.com"]));
         assert_eq!(body["spellcheck"], false);
     }
     #[test]
@@ -1074,12 +1137,34 @@ mod tests {
             &["answers", "-"],
             &["context", "x", "--goggles", "@-"],
             &["web", "x", "--result-filter", "management"],
+            &["web", "x", "--count", "0"],
+            &["web", "x", "--count", "100000"],
+            &["web", "x", "--offset", "100000"],
+            &[
+                "context",
+                "x",
+                "--goggles",
+                "a",
+                "--goggles",
+                "b",
+                "--goggles",
+                "c",
+                "--goggles",
+                "d",
+            ],
         ] {
             assert!(
                 !matches!(run(&argv(args), None), Ok(CommandRun::Proposal(_))),
                 "{args:?}"
             );
         }
+        let injected = r#"{"messages":[{"role":"user","content":"x","extra":{"endpoint":"/admin"}}],"stream":false}"#;
+        let error = run(&argv(&["answers", "-"]), Some(injected)).unwrap_err();
+        assert_eq!(error.code(), "usage");
+        assert_eq!(
+            error.message(),
+            "messages require only role and text content"
+        );
         for (op, input) in [
             (
                 "web",
@@ -1093,6 +1178,14 @@ mod tests {
                 json!({"q":"x", "messages":[{"role":"user","content":"y"}]}),
             ),
             ("images", json!({"q":"x", "safesearch":"moderate"})),
+            ("web", json!({"q":"x", "count":0})),
+            ("web", json!({"q":"x", "count":100000})),
+            ("web", json!({"q":"x", "offset":100000})),
+            ("context", json!({"q":"x", "goggles":["a", "b", "c", "d"]})),
+            (
+                "answers",
+                json!({"messages":[{"role":"user","content":"x","extra":{"endpoint":"/admin"}}]}),
+            ),
         ] {
             let mut called = false;
             assert!(
@@ -1103,6 +1196,54 @@ mod tests {
                 .is_err()
             );
             assert!(!called);
+        }
+    }
+    #[test]
+    fn documented_numeric_limits_match_manifest_and_invoke() {
+        let manifest = Brave::manifest();
+        for op in OPS {
+            for field in fields(*op).filter(|f| f.kind == Kind::Number) {
+                let (min, max) = number_bounds(*op, field.name);
+                let capability = manifest
+                    .capabilities
+                    .iter()
+                    .find(|c| c.id.as_str() == id(*op))
+                    .unwrap();
+                assert_eq!(
+                    capability.input_schema["properties"][field.name]["minimum"], min,
+                    "{}.{}",
+                    op.word, field.name
+                );
+                assert_eq!(
+                    capability.input_schema["properties"][field.name]["maximum"], max,
+                    "{}.{}",
+                    op.word, field.name
+                );
+                let mut base = match op.word {
+                    "places" => json!({"q":"x"}),
+                    "pois" | "descriptions" => json!({"ids":["synthetic-id"]}),
+                    _ => json!({"q":"x"}),
+                };
+                for invalid in [min.checked_sub(1), max.checked_add(1)]
+                    .into_iter()
+                    .flatten()
+                {
+                    base[field.name] = json!(invalid);
+                    let mut called = false;
+                    assert!(
+                        invoke_with(&id(*op).parse().unwrap(), base.clone(), |_| {
+                            called = true;
+                            unreachable!()
+                        })
+                        .is_err(),
+                        "{}.{} accepted {}",
+                        op.word,
+                        field.name,
+                        invalid
+                    );
+                    assert!(!called);
+                }
+            }
         }
     }
     #[test]
