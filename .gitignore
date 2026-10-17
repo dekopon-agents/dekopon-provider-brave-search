@@ -1,3 +1,6 @@
+/target/
+/brave-search-provider.wasm
+/brave-search-provider.wasm.sha256
 .research/
 .venv/
 __pycache__/
