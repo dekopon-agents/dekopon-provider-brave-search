@@ -1,0 +1,2546 @@
+{
+  "$schema": "./schemas/coverage.schema.json",
+  "snapshot": "2026-09-07",
+  "scope": "11 search-family operations; Context has GET and POST. Supported means planned, not installed.",
+  "endpoints": [
+    {
+      "operation": "web",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/web/search",
+      "document": "docs/api/web.md",
+      "provider_schema": "schemas/provider/web.input.schema.json",
+      "response_schema": "schemas/upstream/web.response.schema.json",
+      "response_reference_paths": 2283,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "q",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/q",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "country",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/country",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "search_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/search_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "ui_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/ui_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "count",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/count",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/offset",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "safesearch",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/safesearch",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "spellcheck",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/spellcheck",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "freshness",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/freshness",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "text_decorations",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/text_decorations",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "result_filter",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/result_filter",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "units",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/units",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "goggles_id",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/goggles_id",
+          "status": "deprecated/ignored",
+          "planned_behavior": "Deprecated upstream alias; provider rejects rather than silently ignoring. Use goggles.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "goggles",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/goggles",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "goggles[]",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/goggles/oneOf/1/items",
+          "status": "supported",
+          "planned_behavior": "Each array item is a string; Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md",
+          "nested": true
+        },
+        {
+          "name": "extra_snippets",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/extra_snippets",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "summary",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/summary",
+          "status": "explicitly deferred",
+          "planned_behavior": "Legacy generated-answer key workflow outside initial execution scope.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "enable_rich_callback",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/enable_rich_callback",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "include_fetch_metadata",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/include_fetch_metadata",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "operators",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/query/properties/operators",
+          "status": "beta",
+          "planned_behavior": "Native boolean preserved; search-operator language is explicitly experimental.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "x-loc-lat",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/x-loc-lat",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "x-loc-long",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/x-loc-long",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "x-loc-timezone",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/x-loc-timezone",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "x-loc-city",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/x-loc-city",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "x-loc-state",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/x-loc-state",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "x-loc-state-name",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/x-loc-state-name",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "x-loc-country",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/x-loc-country",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "x-loc-postal-code",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/x-loc-postal-code",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/search/get/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/web.md#inputs",
+          "schema": "schemas/upstream/web.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "local-pois",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/local/pois",
+      "document": "docs/api/local-pois.md",
+      "provider_schema": "schemas/provider/local-pois.input.schema.json",
+      "response_schema": "schemas/upstream/local-pois.response.schema.json",
+      "response_reference_paths": 146,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "ids",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/query/properties/ids",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "ids[]",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/query/properties/ids/items",
+          "status": "supported",
+          "planned_behavior": "Each array item is a string; Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md",
+          "nested": true
+        },
+        {
+          "name": "search_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/query/properties/search_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "ui_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/query/properties/ui_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "units",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/query/properties/units",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "x-loc-lat",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/headers/properties/x-loc-lat",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "x-loc-long",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/headers/properties/x-loc-long",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/local_pois/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/local-pois.md#inputs",
+          "schema": "schemas/upstream/local-pois.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "poi-descriptions",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/local/descriptions",
+      "document": "docs/api/poi-descriptions.md",
+      "provider_schema": "schemas/provider/poi-descriptions.input.schema.json",
+      "response_schema": "schemas/upstream/poi-descriptions.response.schema.json",
+      "response_reference_paths": 5,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/poi-descriptions.md#inputs",
+          "schema": "schemas/upstream/poi-descriptions.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/poi_descriptions/index.html.md"
+        },
+        {
+          "name": "ids",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/poi-descriptions.md#inputs",
+          "schema": "schemas/upstream/poi-descriptions.request.schema.json#/properties/query/properties/ids",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/poi_descriptions/index.html.md"
+        },
+        {
+          "name": "ids[]",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/poi-descriptions.md#inputs",
+          "schema": "schemas/upstream/poi-descriptions.request.schema.json#/properties/query/properties/ids/items",
+          "status": "supported",
+          "planned_behavior": "Each array item is a string; Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/poi_descriptions/index.html.md",
+          "nested": true
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/poi-descriptions.md#inputs",
+          "schema": "schemas/upstream/poi-descriptions.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/poi_descriptions/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/poi-descriptions.md#inputs",
+          "schema": "schemas/upstream/poi-descriptions.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/poi_descriptions/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/poi-descriptions.md#inputs",
+          "schema": "schemas/upstream/poi-descriptions.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/poi_descriptions/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/poi-descriptions.md#inputs",
+          "schema": "schemas/upstream/poi-descriptions.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/poi_descriptions/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/poi-descriptions.md#inputs",
+          "schema": "schemas/upstream/poi-descriptions.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "rich",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/web/rich",
+      "document": "docs/api/rich.md",
+      "provider_schema": "schemas/provider/rich.input.schema.json",
+      "response_schema": "schemas/upstream/rich.response.schema.json",
+      "response_reference_paths": 1157,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/rich.md#inputs",
+          "schema": "schemas/upstream/rich.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/rich_search/index.html.md"
+        },
+        {
+          "name": "callback_key",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/rich.md#inputs",
+          "schema": "schemas/upstream/rich.request.schema.json#/properties/query/properties/callback_key",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/rich_search/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/rich.md#inputs",
+          "schema": "schemas/upstream/rich.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/rich_search/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/rich.md#inputs",
+          "schema": "schemas/upstream/rich.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/rich_search/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/rich.md#inputs",
+          "schema": "schemas/upstream/rich.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/rich_search/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/rich.md#inputs",
+          "schema": "schemas/upstream/rich.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/rich_search/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/rich.md#inputs",
+          "schema": "schemas/upstream/rich.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "context",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "url": "https://api.search.brave.com/res/v1/llm/context",
+      "document": "docs/api/context.md",
+      "provider_schema": "schemas/provider/context.input.schema.json",
+      "response_schema": "schemas/upstream/context.response.schema.json",
+      "response_reference_paths": 16,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "q",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/q",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "q",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/q",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "country",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/country",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "country",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/country",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "search_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/search_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "search_lang",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/search_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "count",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/count",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "count",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/count",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "safesearch",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/safesearch",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "safesearch",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/safesearch",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "spellcheck",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/spellcheck",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "spellcheck",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/spellcheck",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_urls",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/maximum_number_of_urls",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_urls",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/maximum_number_of_urls",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_tokens",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/maximum_number_of_tokens",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_tokens",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/maximum_number_of_tokens",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_snippets",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/maximum_number_of_snippets",
+          "status": "deprecated/ignored",
+          "planned_behavior": "Accepted advisory control; current guide says token budget may override it. Older pipeline differs.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_snippets",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/maximum_number_of_snippets",
+          "status": "deprecated/ignored",
+          "planned_behavior": "Accepted advisory control; current guide says token budget may override it. Older pipeline differs.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "context_threshold_mode",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/context_threshold_mode",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "context_threshold_mode",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/context_threshold_mode",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_tokens_per_url",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/maximum_number_of_tokens_per_url",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_tokens_per_url",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/maximum_number_of_tokens_per_url",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_snippets_per_url",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/maximum_number_of_snippets_per_url",
+          "status": "deprecated/ignored",
+          "planned_behavior": "Accepted advisory control; current guide says token budget may override it. Older pipeline differs.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "maximum_number_of_snippets_per_url",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/maximum_number_of_snippets_per_url",
+          "status": "deprecated/ignored",
+          "planned_behavior": "Accepted advisory control; current guide says token budget may override it. Older pipeline differs.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "goggles",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/goggles",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "goggles",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/goggles",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "goggles[]",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/goggles/oneOf/1/items",
+          "status": "supported",
+          "planned_behavior": "Each array item is a string; Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md",
+          "nested": true
+        },
+        {
+          "name": "goggles[]",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/goggles/oneOf/1/items",
+          "status": "supported",
+          "planned_behavior": "Each array item is a string; Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md",
+          "nested": true
+        },
+        {
+          "name": "freshness",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/freshness",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "freshness",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/freshness",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "enable_local",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/enable_local",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "enable_local",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/enable_local",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "enable_source_metadata",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/query/properties/enable_source_metadata",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "enable_source_metadata",
+          "location": "body",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/body/properties/enable_source_metadata",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "x-loc-lat",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/x-loc-lat",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "x-loc-long",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/x-loc-long",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "x-loc-city",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/x-loc-city",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "x-loc-state",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/x-loc-state",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "x-loc-state-name",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/x-loc-state-name",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "x-loc-country",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/x-loc-country",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "x-loc-postal-code",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/x-loc-postal-code",
+          "status": "supported",
+          "planned_behavior": "Explicit caller localization only; never derive personal location.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/summarizer/llm_context/get/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        },
+        {
+          "name": "content-type",
+          "location": "header",
+          "methods": [
+            "POST"
+          ],
+          "document": "docs/api/context.md#inputs",
+          "schema": "schemas/upstream/context.post.request.schema.json#/properties/headers/properties/content-type",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/documentation/services/llm-context/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "place",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/local/place_search",
+      "document": "docs/api/place.md",
+      "provider_schema": "schemas/provider/place.input.schema.json",
+      "response_schema": "schemas/upstream/place.response.schema.json",
+      "response_reference_paths": 831,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "radius",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/radius",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "count",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/count",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "country",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/country",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "search_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/search_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "ui_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/ui_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "units",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/units",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "safesearch",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/safesearch",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "spellcheck",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/spellcheck",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "geoloc",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/geoloc",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "q",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/q",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "latitude",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/latitude",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "longitude",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/longitude",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "location",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/query/properties/location",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/place.md#inputs",
+          "schema": "schemas/upstream/place.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "news",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/news/search",
+      "document": "docs/api/news.md",
+      "provider_schema": "schemas/provider/news.input.schema.json",
+      "response_schema": "schemas/upstream/news.response.schema.json",
+      "response_reference_paths": 42,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "q",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/q",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "search_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/search_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "ui_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/ui_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "country",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/country",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "safesearch",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/safesearch",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "count",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/count",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/offset",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "spellcheck",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/spellcheck",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "freshness",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/freshness",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "extra_snippets",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/extra_snippets",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "goggles",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/goggles",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "goggles[]",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/goggles/oneOf/1/items",
+          "status": "supported",
+          "planned_behavior": "Each array item is a string; Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md",
+          "nested": true
+        },
+        {
+          "name": "include_fetch_metadata",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/include_fetch_metadata",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "operators",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/query/properties/operators",
+          "status": "beta",
+          "planned_behavior": "Native boolean preserved; search-operator language is explicitly experimental.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/news/news_search/get/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/news.md#inputs",
+          "schema": "schemas/upstream/news.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "videos",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/videos/search",
+      "document": "docs/api/videos.md",
+      "provider_schema": "schemas/provider/videos.input.schema.json",
+      "response_schema": "schemas/upstream/videos.response.schema.json",
+      "response_reference_paths": 43,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "q",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/q",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "search_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/search_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "ui_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/ui_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "country",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/country",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "safesearch",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/safesearch",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "count",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/count",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/offset",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "spellcheck",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/spellcheck",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "freshness",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/freshness",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "include_fetch_metadata",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/include_fetch_metadata",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "operators",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/query/properties/operators",
+          "status": "beta",
+          "planned_behavior": "Native boolean preserved; search-operator language is explicitly experimental.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/videos/video_search/get/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/videos.md#inputs",
+          "schema": "schemas/upstream/videos.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "images",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/images/search",
+      "document": "docs/api/images.md",
+      "provider_schema": "schemas/provider/images.input.schema.json",
+      "response_schema": "schemas/upstream/images.response.schema.json",
+      "response_reference_paths": 30,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "q",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/query/properties/q",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "search_lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/query/properties/search_lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "country",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/query/properties/country",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "safesearch",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/query/properties/safesearch",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "count",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/query/properties/count",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "spellcheck",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/query/properties/spellcheck",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/images.md#inputs",
+          "schema": "schemas/upstream/images.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "suggest",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/suggest/search",
+      "document": "docs/api/suggest.md",
+      "provider_schema": "schemas/provider/suggest.input.schema.json",
+      "response_schema": "schemas/upstream/suggest.response.schema.json",
+      "response_reference_paths": 41,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "q",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/query/properties/q",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/query/properties/lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "country",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/query/properties/country",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "count",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/query/properties/count",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "rich",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/query/properties/rich",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/suggestions/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/suggest.md#inputs",
+          "schema": "schemas/upstream/suggest.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    },
+    {
+      "operation": "spellcheck",
+      "methods": [
+        "GET"
+      ],
+      "url": "https://api.search.brave.com/res/v1/spellcheck/search",
+      "document": "docs/api/spellcheck.md",
+      "provider_schema": "schemas/provider/spellcheck.input.schema.json",
+      "response_schema": "schemas/upstream/spellcheck.response.schema.json",
+      "response_reference_paths": 36,
+      "request_fields": [
+        {
+          "name": "x-subscription-token",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/spellcheck.md#inputs",
+          "schema": "schemas/upstream/spellcheck.request.schema.json#/properties/headers/properties/x-subscription-token",
+          "status": "explicitly deferred",
+          "planned_behavior": "Blocked: current broker secret sinks cannot emit this header. Never expose a key to the guest.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/spell_check/index.html.md"
+        },
+        {
+          "name": "q",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/spellcheck.md#inputs",
+          "schema": "schemas/upstream/spellcheck.request.schema.json#/properties/query/properties/q",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/spell_check/index.html.md"
+        },
+        {
+          "name": "lang",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/spellcheck.md#inputs",
+          "schema": "schemas/upstream/spellcheck.request.schema.json#/properties/query/properties/lang",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/spell_check/index.html.md"
+        },
+        {
+          "name": "country",
+          "location": "query",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/spellcheck.md#inputs",
+          "schema": "schemas/upstream/spellcheck.request.schema.json#/properties/query/properties/country",
+          "status": "supported",
+          "planned_behavior": "Typed native option; omit when absent so the vendor default applies.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/spell_check/index.html.md"
+        },
+        {
+          "name": "api-version",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/spellcheck.md#inputs",
+          "schema": "schemas/upstream/spellcheck.request.schema.json#/properties/headers/properties/api-version",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/spell_check/index.html.md"
+        },
+        {
+          "name": "accept",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/spellcheck.md#inputs",
+          "schema": "schemas/upstream/spellcheck.request.schema.json#/properties/headers/properties/accept",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/spell_check/index.html.md"
+        },
+        {
+          "name": "cache-control",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/spellcheck.md#inputs",
+          "schema": "schemas/upstream/spellcheck.request.schema.json#/properties/headers/properties/cache-control",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/spell_check/index.html.md"
+        },
+        {
+          "name": "user-agent",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/spellcheck.md#inputs",
+          "schema": "schemas/upstream/spellcheck.request.schema.json#/properties/headers/properties/user-agent",
+          "status": "operator-only",
+          "planned_behavior": "Fixed/operator-owned transport setting, not model-supplied headers.",
+          "source": "https://api-dashboard.search.brave.com/api-reference/other/spell_check/index.html.md"
+        },
+        {
+          "name": "accept-encoding",
+          "location": "header",
+          "methods": [
+            "GET"
+          ],
+          "document": "docs/api/spellcheck.md#inputs",
+          "schema": "schemas/upstream/spellcheck.request.schema.json#/properties/headers/properties/accept-encoding",
+          "status": "explicitly deferred",
+          "planned_behavior": "Compression negotiation shown in public examples; bounded decompression must be verified before enabling gzip.",
+          "source": "https://api-dashboard.search.brave.com/documentation/guides/authentication/index.html.md"
+        }
+      ]
+    }
+  ]
+}

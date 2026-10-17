@@ -1,0 +1,21 @@
+{
+  "operation": "local-pois",
+  "native": {
+    "ids": [
+      "synthetic-place-01",
+      "synthetic-place-02"
+    ],
+    "search_lang": "en",
+    "ui_lang": "en-GB",
+    "units": "metric"
+  },
+  "output": {
+    "mode": "raw",
+    "max_results": 10,
+    "max_bytes": 32768
+  },
+  "localization": {
+    "x-loc-lat": "51.50",
+    "x-loc-long": "-0.12"
+  }
+}

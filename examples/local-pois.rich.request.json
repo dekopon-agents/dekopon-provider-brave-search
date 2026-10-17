@@ -1,0 +1,18 @@
+{
+  "query": {
+    "ids": [
+      "synthetic-place-01",
+      "synthetic-place-02"
+    ],
+    "search_lang": "en",
+    "ui_lang": "en-GB",
+    "units": "metric"
+  },
+  "headers": {
+    "accept": "application/json",
+    "cache-control": "no-cache",
+    "user-agent": "SyntheticDocsExample/1.0",
+    "x-loc-lat": "51.50",
+    "x-loc-long": "-0.12"
+  }
+}

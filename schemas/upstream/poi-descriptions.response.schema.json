@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "POI Descriptions upstream 200 documented-shape schema",
+  "description": "All fetched reference 200 field paths are represented; guide-only Context metadata is added. Unknown properties are allowed, and optional reference fields allow null. Requiredness is intentionally not enforced because these are variable vendor models, not exhaustive validation.",
+  "x-source": "https://api-dashboard.search.brave.com/api-reference/web/poi_descriptions/index.html.md",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Vendor field; semantic details/units are not specified in the fetched reference."
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Documented discriminator `local_description` identifies this enclosing model; unknown future tags remain accepted."
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier scoped to the enclosing result; local-place IDs expire in about eight hours."
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Display description/excerpt; POI Descriptions text is generated and Context source description is query-independent."
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Results collection."
+    }
+  },
+  "additionalProperties": true
+}

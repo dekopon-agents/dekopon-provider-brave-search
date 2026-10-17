@@ -42,3 +42,7 @@ DEKOPON_PROVIDER_COMPONENT="$PWD/brave-search-provider.wasm" cargo test --locked
 ```
 
 Native request tests use synthetic HTTP responses and an injected send closure; real component/testkit tests assert CLI/help, capability routing, invalid inputs, and HTTP refusal without a grant. Because the fixed production origin cannot be redirected and paid vendor calls are forbidden, successful real-component HTTP roundtrips are **not verified**. Testkit's refusal must not be mistaken for successful Brave integration.
+
+## API reference
+
+Brave's search API, request controls, response semantics and the original provider plan are documented in [docs/](docs/endpoints.md), with schemas in [schemas/](schemas/README.md). `scripts/validate_docs.py` is their offline gate.

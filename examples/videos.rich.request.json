@@ -1,0 +1,20 @@
+{
+  "query": {
+    "q": "orbital gardens",
+    "country": "GB",
+    "search_lang": "en",
+    "ui_lang": "en-GB",
+    "count": 5,
+    "offset": 1,
+    "freshness": "pm",
+    "safesearch": "strict",
+    "spellcheck": false,
+    "include_fetch_metadata": true,
+    "operators": true
+  },
+  "headers": {
+    "accept": "application/json",
+    "cache-control": "no-cache",
+    "user-agent": "SyntheticDocsExample/1.0"
+  }
+}

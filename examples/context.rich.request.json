@@ -1,0 +1,30 @@
+{
+  "query": {
+    "q": "orbital gardens",
+    "count": 12,
+    "maximum_number_of_urls": 4,
+    "maximum_number_of_tokens": 4096,
+    "maximum_number_of_snippets": 8,
+    "maximum_number_of_tokens_per_url": 1024,
+    "maximum_number_of_snippets_per_url": 3,
+    "context_threshold_mode": "strict",
+    "country": "GB",
+    "search_lang": "en",
+    "safesearch": "strict",
+    "spellcheck": false,
+    "freshness": "py",
+    "enable_local": "false",
+    "enable_source_metadata": true,
+    "goggles": [
+      "$boost=2,site=example.com",
+      "$downrank,site=example.org"
+    ]
+  },
+  "headers": {
+    "accept": "application/json",
+    "cache-control": "no-cache",
+    "user-agent": "SyntheticDocsExample/1.0",
+    "x-loc-lat": "51.50",
+    "x-loc-long": "-0.12"
+  }
+}

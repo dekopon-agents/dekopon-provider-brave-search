@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "POI Descriptions proposed provider input (not implemented)",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "const": "poi-descriptions"
+    },
+    "native": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "maxItems": 20,
+          "description": "Temporary place identifiers obtained from search, valid for about eight hours; repeated query keys, one to twenty IDs per Web guide.",
+          "x-vendor-constraints": ""
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ids"
+      ]
+    },
+    "localization": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "output": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "raw",
+            "brief"
+          ],
+          "default": "brief"
+        },
+        "max_results": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200,
+          "default": 10
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 262144,
+          "default": 32768
+        },
+        "fields": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^/"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "fields"
+            ]
+          },
+          "then": {
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "const": "raw"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "operation",
+    "native"
+  ]
+}

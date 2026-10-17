@@ -1,0 +1,13 @@
+{
+  "operation": "spellcheck",
+  "native": {
+    "q": "orbitl gardens",
+    "lang": "en",
+    "country": "GB"
+  },
+  "output": {
+    "mode": "raw",
+    "max_results": 10,
+    "max_bytes": 32768
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Place Search decoded upstream GET request shape (auth omitted in fixtures)",
+  "description": "Documented-shape schema, not an exhaustive wire validator. query values use reference types; headers are strings. Required broker secret is intentionally not required in offline fixtures. See coverage and source conflicts.",
+  "x-source": "https://api-dashboard.search.brave.com/api-reference/web/place_search/index.html.md",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "object",
+      "properties": {
+        "radius": {
+          "type": "string",
+          "description": "Nonnegative radius BIAS in metres, not a strict distance cutoff. Without radius the guide/reference describes global search.",
+          "x-vendor-constraints": "min `0`"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1.0,
+          "maximum": 100.0,
+          "default": 20,
+          "description": "Requested result ceiling, not a guaranteed number; Web applies it only to web.results, Context uses it for candidate selection.",
+          "x-vendor-constraints": "`1`-`100`; default `20`"
+        },
+        "country": {
+          "type": "string",
+          "enum": [
+            "AR",
+            "AU",
+            "AT",
+            "BE",
+            "BR",
+            "CA",
+            "CL",
+            "DK",
+            "FI",
+            "FR",
+            "DE",
+            "GR",
+            "HK",
+            "IN",
+            "ID",
+            "IT",
+            "JP",
+            "KR",
+            "MY",
+            "MX",
+            "NL",
+            "NZ",
+            "NO",
+            "CN",
+            "PL",
+            "PT",
+            "PH",
+            "RU",
+            "SA",
+            "ZA",
+            "ES",
+            "SE",
+            "CH",
+            "TW",
+            "TR",
+            "GB",
+            "US",
+            "ALL"
+          ],
+          "default": "US",
+          "description": "Result-country selection using the listed country codes; ALL means worldwide. For suggest/spellcheck it is a ranking hint, not a hard geographic boundary.",
+          "x-vendor-constraints": "`AR`, `AU`, `AT`, `BE`, `BR`, `CA`, `CL`, `DK`, `FI`, `FR`, `DE`, `GR`, `HK`, `IN`, `ID`, `IT`, `JP`, `KR`, `MY`, `MX`, `NL`, `NZ`, `NO`, `CN`, `PL`, `PT`, `PH`, `RU`, `SA`, `ZA`, `ES`, `SE`, `CH`, `TW`, `TR`, `GB`, `US`, `ALL`; default `US`"
+        },
+        "search_lang": {
+          "type": "string",
+          "enum": [
+            "ar",
+            "eu",
+            "bn",
+            "bg",
+            "ca",
+            "zh-hans",
+            "zh-hant",
+            "hr",
+            "cs",
+            "da",
+            "nl",
+            "en",
+            "en-gb",
+            "et",
+            "fi",
+            "fr",
+            "gl",
+            "de",
+            "el",
+            "gu",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "it",
+            "ja",
+            "jp",
+            "kn",
+            "ko",
+            "lv",
+            "lt",
+            "ms",
+            "ml",
+            "mr",
+            "nb",
+            "pl",
+            "pt-br",
+            "pt-pt",
+            "pa",
+            "ro",
+            "ru",
+            "sr",
+            "sk",
+            "sl",
+            "es",
+            "sv",
+            "ta",
+            "te",
+            "th",
+            "tr",
+            "uk",
+            "vi"
+          ],
+          "default": "en",
+          "description": "Preferred content language, not interface language. Codes identify languages; regional/script suffixes narrow the preference.",
+          "x-vendor-constraints": "`ar`, `eu`, `bn`, `bg`, `ca`, `zh-hans`, `zh-hant`, `hr`, `cs`, `da`, `nl`, `en`, `en-gb`, `et`, `fi`, `fr`, `gl`, `de`, `el`, `gu`, `he`, `hi`, `hu`, `is`, `it`, `ja`, `jp`, `kn`, `ko`, `lv`, `lt`, `ms`, `ml`, `mr`, `nb`, `pl`, `pt-br`, `pt-pt`, `pa`, `ro`, `ru`, `sr`, `sk`, `sl`, `es`, `sv`, `ta`, `te`, `th`, `tr`, `uk`, `vi`; default `en`"
+        },
+        "ui_lang": {
+          "type": "string",
+          "enum": [
+            "es-AR",
+            "en-AU",
+            "de-AT",
+            "nl-BE",
+            "fr-BE",
+            "pt-BR",
+            "en-CA",
+            "fr-CA",
+            "es-CL",
+            "da-DK",
+            "fi-FI",
+            "fr-FR",
+            "de-DE",
+            "el-GR",
+            "zh-HK",
+            "en-IN",
+            "en-ID",
+            "it-IT",
+            "ja-JP",
+            "ko-KR",
+            "en-MY",
+            "es-MX",
+            "nl-NL",
+            "en-NZ",
+            "no-NO",
+            "zh-CN",
+            "pl-PL",
+            "en-PH",
+            "ru-RU",
+            "en-ZA",
+            "es-ES",
+            "sv-SE",
+            "fr-CH",
+            "de-CH",
+            "zh-TW",
+            "tr-TR",
+            "en-GB",
+            "en-US",
+            "es-US"
+          ],
+          "default": "en-US",
+          "description": "Language-region locale for presentation and metadata, not a translation request.",
+          "x-vendor-constraints": "`es-AR`, `en-AU`, `de-AT`, `nl-BE`, `fr-BE`, `pt-BR`, `en-CA`, `fr-CA`, `es-CL`, `da-DK`, `fi-FI`, `fr-FR`, `de-DE`, `el-GR`, `zh-HK`, `en-IN`, `en-ID`, `it-IT`, `ja-JP`, `ko-KR`, `en-MY`, `es-MX`, `nl-NL`, `en-NZ`, `no-NO`, `zh-CN`, `pl-PL`, `en-PH`, `ru-RU`, `en-ZA`, `es-ES`, `sv-SE`, `fr-CH`, `de-CH`, `zh-TW`, `tr-TR`, `en-GB`, `en-US`, `es-US`; default `en-US`"
+        },
+        "units": {
+          "type": "string",
+          "enum": [
+            "imperial",
+            "metric"
+          ],
+          "default": "metric",
+          "description": "metric uses kilometres/Celsius; imperial uses miles/Fahrenheit. Response quantities carry their own unit fields.",
+          "x-vendor-constraints": "`imperial`, `metric`; default `metric`"
+        },
+        "safesearch": {
+          "type": "string",
+          "enum": [
+            "off",
+            "moderate",
+            "strict"
+          ],
+          "default": "strict",
+          "description": "Adult-content policy; endpoint-specific off/moderate/strict semantics are explained below.",
+          "x-vendor-constraints": "`off`, `moderate`, `strict`; default `strict`"
+        },
+        "spellcheck": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow upstream spelling changes before searching; inspect query.altered rather than pretending the original phrase was executed unchanged.",
+          "x-vendor-constraints": "default `true`"
+        },
+        "geoloc": {
+          "type": "string",
+          "description": "User coordinates formatted latitudexlongitude for displayed distances; distinct from the search-centre coordinates.",
+          "x-vendor-constraints": ""
+        },
+        "q": {
+          "type": "string",
+          "default": "",
+          "description": "Search phrase; nonempty, at most 400 characters and 50 words where required. Place Search also accepts omission or an empty phrase.",
+          "x-vendor-constraints": "default ``"
+        },
+        "latitude": {
+          "type": "string",
+          "description": "Search-centre latitude in decimal degrees.",
+          "x-vendor-constraints": "`-90`-`90`"
+        },
+        "longitude": {
+          "type": "string",
+          "description": "Search-centre longitude in decimal degrees.",
+          "x-vendor-constraints": "`-180`-`180`"
+        },
+        "location": {
+          "type": "string",
+          "description": "Place-name alternative to latitude/longitude. US: city state country; elsewhere: city country. Case/commas unnecessary; common local language or English preferred.",
+          "x-vendor-constraints": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "x-subscription-token": {
+          "type": "string",
+          "description": "Required vendor secret header. Broker-only integration gate; not a provider argument or fixture value.",
+          "x-vendor-constraints": ""
+        },
+        "api-version": {
+          "type": "string",
+          "description": "Date-form API version YYYY-MM-DD; omission follows latest. Operator selects any explicit pin; old Context pipeline pin is 2026-02-06.",
+          "x-vendor-constraints": ""
+        },
+        "accept": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ],
+          "default": "application/json",
+          "description": "application/json requests JSON; */* accepts the available representation. Provider fixes JSON.",
+          "x-vendor-constraints": "`application/json`, `*/*`; default `application/json`"
+        },
+        "cache-control": {
+          "type": "string",
+          "description": "no-cache asks upstream to avoid cached content on a best-effort basis; no retention or origin-fetch guarantee.",
+          "x-vendor-constraints": "`no-cache`"
+        },
+        "user-agent": {
+          "type": "string",
+          "description": "Originating agent/device description can change presentation; operator-owned, not caller-supplied arbitrary identity.",
+          "x-vendor-constraints": ""
+        },
+        "accept-encoding": {
+          "type": "string",
+          "description": "Compression negotiation shown as gzip in public examples; operator-only and deferred until bounded decompression behavior is verified.",
+          "x-vendor-constraints": "`gzip`"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "query"
+  ]
+}

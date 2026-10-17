@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Spellcheck upstream 200 documented-shape schema",
+  "description": "All fetched reference 200 field paths are represented; guide-only Context metadata is added. Unknown properties are allowed, and optional reference fields allow null. Requiredness is intentionally not enforced because these are variable vendor models, not exhaustive validation.",
+  "x-source": "https://api-dashboard.search.brave.com/api-reference/other/spell_check/index.html.md",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Vendor field; semantic details/units are not specified in the fetched reference."
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "original": {
+          "type": "string",
+          "description": "Original user phrase (or original asset URL within a thumbnail)."
+        },
+        "show_strict_warning": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Indicates results were reduced by strict safety filtering."
+        },
+        "altered": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Spelling-corrected phrase actually used upstream."
+        },
+        "cleaned": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Normalized query text."
+        },
+        "safesearch": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Safesearch metadata/value within this model."
+        },
+        "is_navigational": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Is navigational metadata/value within this model."
+        },
+        "is_geolocal": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Is geolocal metadata/value within this model."
+        },
+        "local_decision": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Local decision metadata/value within this model."
+        },
+        "local_locations_idx": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Local locations idx metadata/value within this model."
+        },
+        "is_trending": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Is trending metadata/value within this model."
+        },
+        "is_news_breaking": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Is news breaking metadata/value within this model."
+        },
+        "ask_for_location": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Ask for location metadata/value within this model."
+        },
+        "language": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "main": {
+              "type": "string",
+              "description": "Main metadata/value within this model."
+            }
+          },
+          "additionalProperties": true,
+          "description": "Language metadata/value within this model."
+        },
+        "spellcheck_off": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Spellcheck off metadata/value within this model."
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Country metadata/value within this model."
+        },
+        "bad_results": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Bad results metadata/value within this model."
+        },
+        "should_fallback": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Vendor ranking hint; provider does not initiate fallback."
+        },
+        "lat": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Lat metadata/value within this model."
+        },
+        "long": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Long metadata/value within this model."
+        },
+        "postal_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Postal code metadata/value within this model."
+        },
+        "city": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "City metadata/value within this model."
+        },
+        "header_country": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Header country metadata/value within this model."
+        },
+        "more_results_available": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Vendor continuation hint, only actionable where the endpoint has pagination."
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "State metadata/value within this model."
+        },
+        "custom_location_label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Custom location label metadata/value within this model."
+        },
+        "reddit_cluster": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reddit cluster metadata/value within this model."
+        },
+        "summary_key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Opaque legacy generated-answer key; no automatic consumption."
+        },
+        "search_operators": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "applied": {
+              "type": [
+                "boolean",
+                "null"
+              ],
+              "description": "Applied metadata/value within this model."
+            },
+            "cleaned_query": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Cleaned query metadata/value within this model."
+            },
+            "sites": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "Sites collection."
+            }
+          },
+          "additionalProperties": true,
+          "description": "Search operators metadata/value within this model."
+        }
+      },
+      "additionalProperties": true,
+      "description": "Query metadata object, or corrected/completed phrase on suggestion/spellcheck items."
+    },
+    "results": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query metadata object, or corrected/completed phrase on suggestion/spellcheck items."
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Results collection."
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,1 @@
+https://api.search.brave.com/res/v1/local/pois?ids=synthetic-place-01&ids=synthetic-place-02&search_lang=en&ui_lang=en-GB&units=metric

@@ -1,0 +1,30 @@
+{
+  "grounding": {
+    "generic": [
+      {
+        "url": "https://example.com/gardens",
+        "title": "Orbital Garden Handbook",
+        "snippets": [
+          "A synthetic orbital garden uses recirculated water.",
+          "{\"bed_count\": 4, \"synthetic\": true}"
+        ]
+      }
+    ],
+    "map": [],
+    "poi": null
+  },
+  "sources": {
+    "https://example.com/gardens": {
+      "title": "Orbital Garden Handbook",
+      "hostname": "example.com",
+      "age": [
+        "Sunday, September 6, 2026",
+        "2026-09-06",
+        "1 day ago",
+        "2026-09-06T12:00:00Z"
+      ],
+      "site_name": "Example Research",
+      "description": "A synthetic handbook."
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "news",
+  "query": {
+    "original": "orbital gardens"
+  },
+  "results": [
+    {
+      "type": "news_result",
+      "title": "Demonstration garden opens",
+      "url": "https://example.com/news/garden",
+      "description": "Synthetic news about an educational garden.",
+      "age": "1 day ago",
+      "page_age": "2026-09-06",
+      "page_fetched": "2026-09-07T00:00:00Z",
+      "breaking": false,
+      "extra_snippets": [
+        "The display opens on Monday."
+      ],
+      "thumbnail": {
+        "src": "https://example.com/thumb.jpg"
+      }
+    }
+  ]
+}

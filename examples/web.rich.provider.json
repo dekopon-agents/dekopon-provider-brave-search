@@ -1,0 +1,33 @@
+{
+  "operation": "web",
+  "native": {
+    "q": "orbital gardens site:example.com",
+    "count": 3,
+    "offset": 1,
+    "country": "GB",
+    "search_lang": "en",
+    "ui_lang": "en-GB",
+    "freshness": "pw",
+    "safesearch": "strict",
+    "spellcheck": false,
+    "text_decorations": false,
+    "extra_snippets": true,
+    "goggles": [
+      "$boost=2,site=example.com"
+    ],
+    "result_filter": "web,news,locations",
+    "units": "metric",
+    "enable_rich_callback": true,
+    "include_fetch_metadata": true,
+    "operators": true
+  },
+  "output": {
+    "mode": "raw",
+    "max_results": 10,
+    "max_bytes": 32768
+  },
+  "localization": {
+    "x-loc-lat": "51.50",
+    "x-loc-long": "-0.12"
+  }
+}

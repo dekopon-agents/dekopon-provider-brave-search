@@ -1,0 +1,28 @@
+{
+  "type": "images",
+  "query": {
+    "original": "orbital gardens"
+  },
+  "results": [
+    {
+      "type": "image_result",
+      "title": "Demonstration garden",
+      "url": "https://example.com/garden",
+      "source": "example.com",
+      "thumbnail": {
+        "src": "https://example.com/thumb.jpg",
+        "width": 320,
+        "height": 200
+      },
+      "properties": {
+        "url": "https://example.com/garden.jpg",
+        "width": 1280,
+        "height": 800
+      },
+      "confidence": "high"
+    }
+  ],
+  "extra": {
+    "might_be_offensive": false
+  }
+}

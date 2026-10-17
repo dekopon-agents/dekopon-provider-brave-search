@@ -1,0 +1,12 @@
+{
+  "query": {
+    "q": "orbitl gardens",
+    "lang": "en",
+    "country": "GB"
+  },
+  "headers": {
+    "accept": "application/json",
+    "cache-control": "no-cache",
+    "user-agent": "SyntheticDocsExample/1.0"
+  }
+}

@@ -1,0 +1,281 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Proposed provider output envelope (not an upstream schema)",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "enum": [
+        "web",
+        "context",
+        "news",
+        "images",
+        "videos",
+        "place",
+        "local-pois",
+        "poi-descriptions",
+        "rich",
+        "suggest",
+        "spellcheck"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "links",
+        "brief",
+        "relevant",
+        "page-text",
+        "raw"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "type": "string"
+        },
+        "synthetic": {
+          "type": "boolean"
+        },
+        "http_status": {
+          "type": "integer"
+        },
+        "api_version": {
+          "type": "string"
+        },
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "rate_headers": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "endpoint",
+        "synthetic"
+      ]
+    },
+    "truncated": {
+      "type": "boolean"
+    },
+    "omitted_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "omitted_chunks": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "omitted_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "query": {
+            "type": "string"
+          },
+          "snippets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "generated": {
+            "type": "boolean"
+          },
+          "source_id": {
+            "type": "string"
+          },
+          "subtype": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          },
+          "data": {},
+          "source_metadata": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "raw": {},
+    "error": {
+      "type": "object",
+      "properties": {
+        "stage": {
+          "enum": [
+            "input",
+            "transport",
+            "upstream",
+            "projection"
+          ]
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "http_status": {
+          "type": "integer"
+        },
+        "retryable": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "stage",
+        "code",
+        "message"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "operation",
+    "mode",
+    "provenance",
+    "truncated"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": { "const": "links" }
+        }
+      },
+      "then": {
+        "properties": {
+          "operation": {
+            "enum": ["web", "context", "news", "images", "videos", "place", "local-pois"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": { "const": "relevant" }
+        }
+      },
+      "then": {
+        "properties": {
+          "operation": { "enum": ["web", "news", "context"] }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": { "const": "page-text" }
+        }
+      },
+      "then": {
+        "properties": {
+          "operation": { "const": "context" }
+        }
+      }
+    }
+  ],
+  "oneOf": [
+    {
+      "required": [
+        "records"
+      ],
+      "properties": {
+        "mode": {
+          "enum": ["links", "brief", "relevant", "page-text"]
+        }
+      },
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "raw"
+            ]
+          },
+          {
+            "required": [
+              "error"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "required": [
+        "raw"
+      ],
+      "properties": {
+        "mode": {
+          "const": "raw"
+        }
+      },
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "records"
+            ]
+          },
+          {
+            "required": [
+              "error"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "required": [
+        "error"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "records"
+            ]
+          },
+          {
+            "required": [
+              "raw"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

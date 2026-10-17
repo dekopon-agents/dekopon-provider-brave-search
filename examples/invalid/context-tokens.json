@@ -1,0 +1,7 @@
+{
+  "operation": "context",
+  "native": {
+    "q": "garden",
+    "maximum_number_of_tokens": 1023
+  }
+}

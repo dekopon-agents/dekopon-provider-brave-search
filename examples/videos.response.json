@@ -1,0 +1,24 @@
+{
+  "type": "videos",
+  "query": {
+    "original": "orbital gardens"
+  },
+  "results": [
+    {
+      "type": "video_result",
+      "title": "Orbital Garden Demonstration",
+      "url": "https://example.com/watch/garden",
+      "description": "Synthetic instructional video result.",
+      "video": {
+        "duration": "04:12",
+        "views": 123,
+        "creator": "Example Research",
+        "requires_subscription": false
+      },
+      "thumbnail": {
+        "src": "https://example.com/video-thumb.jpg"
+      }
+    }
+  ],
+  "extra": {}
+}
