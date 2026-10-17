@@ -1,0 +1,34 @@
+{
+  "type": "local_pois",
+  "results": [
+    {
+      "type": "location_result",
+      "title": "Example Garden",
+      "url": "https://example.com/garden",
+      "provider_url": "https://example.com/places/1",
+      "id": "synthetic-place-01",
+      "coordinates": [
+        51.5,
+        -0.12
+      ],
+      "postal_address": {
+        "displayAddress": "Example Square, Example City"
+      },
+      "rating": {
+        "ratingValue": 4.2,
+        "bestRating": 5,
+        "reviewCount": 12
+      },
+      "opening_hours": {
+        "current_day": [
+          {
+            "abbr_name": "Mon",
+            "full_name": "Monday",
+            "opens": "09:00",
+            "closes": "17:00"
+          }
+        ]
+      }
+    }
+  ]
+}

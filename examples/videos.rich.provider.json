@@ -1,0 +1,21 @@
+{
+  "operation": "videos",
+  "native": {
+    "q": "orbital gardens",
+    "country": "GB",
+    "search_lang": "en",
+    "ui_lang": "en-GB",
+    "count": 5,
+    "offset": 1,
+    "freshness": "pm",
+    "safesearch": "strict",
+    "spellcheck": false,
+    "include_fetch_metadata": true,
+    "operators": true
+  },
+  "output": {
+    "mode": "raw",
+    "max_results": 10,
+    "max_bytes": 32768
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "snapshot": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "endpoints": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "type": "string"
+          },
+          "methods": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "GET",
+                "POST"
+              ]
+            }
+          },
+          "url": {
+            "type": "string"
+          },
+          "document": {
+            "type": "string"
+          },
+          "provider_schema": {
+            "type": "string"
+          },
+          "response_schema": {
+            "type": "string"
+          },
+          "response_reference_paths": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "request_fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "location": {
+                  "enum": [
+                    "query",
+                    "body",
+                    "header"
+                  ]
+                },
+                "methods": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "GET",
+                      "POST"
+                    ]
+                  },
+                  "minItems": 1
+                },
+                "document": {
+                  "type": "string"
+                },
+                "schema": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "supported",
+                    "beta",
+                    "deprecated/ignored",
+                    "operator-only",
+                    "explicitly deferred"
+                  ]
+                },
+                "planned_behavior": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                },
+                "nested": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "location",
+                "methods",
+                "document",
+                "schema",
+                "status",
+                "planned_behavior",
+                "source"
+              ]
+            },
+            "minItems": 1
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "operation",
+          "methods",
+          "url",
+          "document",
+          "provider_schema",
+          "response_schema",
+          "response_reference_paths",
+          "request_fields"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "snapshot",
+    "scope",
+    "endpoints"
+  ]
+}

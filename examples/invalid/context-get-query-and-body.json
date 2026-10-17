@@ -1,0 +1,8 @@
+{
+  "query": {
+    "q": "garden"
+  },
+  "body": {
+    "q": "garden"
+  }
+}

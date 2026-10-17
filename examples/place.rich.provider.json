@@ -1,0 +1,22 @@
+{
+  "operation": "place",
+  "native": {
+    "q": "gardens",
+    "latitude": "51.50",
+    "longitude": "-0.12",
+    "radius": "2500",
+    "geoloc": "51.51x-0.11",
+    "count": 5,
+    "country": "GB",
+    "search_lang": "en",
+    "ui_lang": "en-GB",
+    "units": "metric",
+    "safesearch": "strict",
+    "spellcheck": false
+  },
+  "output": {
+    "mode": "raw",
+    "max_results": 10,
+    "max_bytes": 32768
+  }
+}

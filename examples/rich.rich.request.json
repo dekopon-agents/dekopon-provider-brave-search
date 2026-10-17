@@ -1,0 +1,10 @@
+{
+  "query": {
+    "callback_key": "synthetic-key-01"
+  },
+  "headers": {
+    "accept": "application/json",
+    "cache-control": "no-cache",
+    "user-agent": "SyntheticDocsExample/1.0"
+  }
+}

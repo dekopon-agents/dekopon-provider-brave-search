@@ -1,0 +1,13 @@
+{
+  "query": {
+    "ids": [
+      "synthetic-place-01",
+      "synthetic-place-02"
+    ]
+  },
+  "headers": {
+    "accept": "application/json",
+    "cache-control": "no-cache",
+    "user-agent": "SyntheticDocsExample/1.0"
+  }
+}

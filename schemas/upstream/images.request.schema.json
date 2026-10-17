@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Images Search decoded upstream GET request shape (auth omitted in fixtures)",
+  "description": "Documented-shape schema, not an exhaustive wire validator. query values use reference types; headers are strings. Required broker secret is intentionally not required in offline fixtures. See coverage and source conflicts.",
+  "x-source": "https://api-dashboard.search.brave.com/api-reference/images/image_search/index.html.md",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "object",
+      "properties": {
+        "q": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "description": "Search phrase; nonempty, at most 400 characters and 50 words where required. Place Search also accepts omission or an empty phrase.",
+          "x-vendor-constraints": ""
+        },
+        "search_lang": {
+          "type": "string",
+          "enum": [
+            "ar",
+            "eu",
+            "bn",
+            "bg",
+            "ca",
+            "zh-hans",
+            "zh-hant",
+            "hr",
+            "cs",
+            "da",
+            "nl",
+            "en",
+            "en-gb",
+            "et",
+            "fi",
+            "fr",
+            "gl",
+            "de",
+            "el",
+            "gu",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "it",
+            "ja",
+            "jp",
+            "kn",
+            "ko",
+            "lv",
+            "lt",
+            "ms",
+            "ml",
+            "mr",
+            "nb",
+            "pl",
+            "pt-br",
+            "pt-pt",
+            "pa",
+            "ro",
+            "ru",
+            "sr",
+            "sk",
+            "sl",
+            "es",
+            "sv",
+            "ta",
+            "te",
+            "th",
+            "tr",
+            "uk",
+            "vi"
+          ],
+          "default": "en",
+          "description": "Preferred content language, not interface language. Codes identify languages; regional/script suffixes narrow the preference.",
+          "x-vendor-constraints": "`ar`, `eu`, `bn`, `bg`, `ca`, `zh-hans`, `zh-hant`, `hr`, `cs`, `da`, `nl`, `en`, `en-gb`, `et`, `fi`, `fr`, `gl`, `de`, `el`, `gu`, `he`, `hi`, `hu`, `is`, `it`, `ja`, `jp`, `kn`, `ko`, `lv`, `lt`, `ms`, `ml`, `mr`, `nb`, `pl`, `pt-br`, `pt-pt`, `pa`, `ro`, `ru`, `sr`, `sk`, `sl`, `es`, `sv`, `ta`, `te`, `th`, `tr`, `uk`, `vi`; default `en`"
+        },
+        "country": {
+          "type": "string",
+          "enum": [
+            "AR",
+            "AU",
+            "AT",
+            "BE",
+            "BR",
+            "CA",
+            "CL",
+            "DK",
+            "FI",
+            "FR",
+            "DE",
+            "GR",
+            "HK",
+            "IN",
+            "ID",
+            "IT",
+            "JP",
+            "KR",
+            "MY",
+            "MX",
+            "NL",
+            "NZ",
+            "NO",
+            "CN",
+            "PL",
+            "PT",
+            "PH",
+            "RU",
+            "SA",
+            "ZA",
+            "ES",
+            "SE",
+            "CH",
+            "TW",
+            "TR",
+            "GB",
+            "US",
+            "ALL"
+          ],
+          "default": "US",
+          "description": "Result-country selection using the listed country codes; ALL means worldwide. For suggest/spellcheck it is a ranking hint, not a hard geographic boundary.",
+          "x-vendor-constraints": "`AR`, `AU`, `AT`, `BE`, `BR`, `CA`, `CL`, `DK`, `FI`, `FR`, `DE`, `GR`, `HK`, `IN`, `ID`, `IT`, `JP`, `KR`, `MY`, `MX`, `NL`, `NZ`, `NO`, `CN`, `PL`, `PT`, `PH`, `RU`, `SA`, `ZA`, `ES`, `SE`, `CH`, `TW`, `TR`, `GB`, `US`, `ALL`; default `US`"
+        },
+        "safesearch": {
+          "type": "string",
+          "enum": [
+            "off",
+            "strict"
+          ],
+          "default": "strict",
+          "description": "Adult-content policy; endpoint-specific off/moderate/strict semantics are explained below.",
+          "x-vendor-constraints": "`off`, `strict`; default `strict`"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1.0,
+          "maximum": 200.0,
+          "default": 50,
+          "description": "Requested result ceiling, not a guaranteed number; Web applies it only to web.results, Context uses it for candidate selection.",
+          "x-vendor-constraints": "`1`-`200`; default `50`"
+        },
+        "spellcheck": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow upstream spelling changes before searching; inspect query.altered rather than pretending the original phrase was executed unchanged.",
+          "x-vendor-constraints": "default `true`"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "q"
+      ]
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "x-subscription-token": {
+          "type": "string",
+          "description": "Required vendor secret header. Broker-only integration gate; not a provider argument or fixture value.",
+          "x-vendor-constraints": ""
+        },
+        "api-version": {
+          "type": "string",
+          "description": "Date-form API version YYYY-MM-DD; omission follows latest. Operator selects any explicit pin; old Context pipeline pin is 2026-02-06.",
+          "x-vendor-constraints": ""
+        },
+        "accept": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ],
+          "default": "application/json",
+          "description": "application/json requests JSON; */* accepts the available representation. Provider fixes JSON.",
+          "x-vendor-constraints": "`application/json`, `*/*`; default `application/json`"
+        },
+        "cache-control": {
+          "type": "string",
+          "description": "no-cache asks upstream to avoid cached content on a best-effort basis; no retention or origin-fetch guarantee.",
+          "x-vendor-constraints": "`no-cache`"
+        },
+        "user-agent": {
+          "type": "string",
+          "description": "Originating agent/device description can change presentation; operator-owned, not caller-supplied arbitrary identity.",
+          "x-vendor-constraints": ""
+        },
+        "accept-encoding": {
+          "type": "string",
+          "description": "Compression negotiation shown as gzip in public examples; operator-only and deferred until bounded decompression behavior is verified.",
+          "x-vendor-constraints": "`gzip`"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "query"
+  ]
+}

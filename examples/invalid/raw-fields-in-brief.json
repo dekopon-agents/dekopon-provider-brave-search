@@ -1,0 +1,12 @@
+{
+  "operation": "web",
+  "native": {
+    "q": "garden"
+  },
+  "output": {
+    "mode": "brief",
+    "fields": [
+      "/web"
+    ]
+  }
+}

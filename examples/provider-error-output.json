@@ -1,0 +1,15 @@
+{
+  "operation": "web",
+  "mode": "brief",
+  "provenance": {
+    "endpoint": "https://api.search.brave.com/res/v1/web/search",
+    "synthetic": true
+  },
+  "truncated": false,
+  "error": {
+    "stage": "projection",
+    "code": "output_limit",
+    "message": "Synthetic result could not fit the configured output ceiling.",
+    "retryable": false
+  }
+}

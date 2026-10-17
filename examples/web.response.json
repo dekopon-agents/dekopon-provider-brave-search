@@ -1,0 +1,31 @@
+{
+  "type": "search",
+  "query": {
+    "original": "orbital gardens",
+    "more_results_available": true
+  },
+  "web": {
+    "type": "search",
+    "results": [
+      {
+        "title": "Orbital Garden Handbook",
+        "url": "https://example.com/gardens",
+        "description": "A synthetic guide to growing plants in an orbital habitat.",
+        "extra_snippets": [
+          "The demonstration garden uses recirculated water."
+        ],
+        "profile": {
+          "name": "Example Research",
+          "url": "https://example.com"
+        }
+      }
+    ]
+  },
+  "rich": {
+    "type": "rich",
+    "hint": {
+      "vertical": "calculator",
+      "callback_key": "synthetic-key-01"
+    }
+  }
+}

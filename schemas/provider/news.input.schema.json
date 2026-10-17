@@ -1,0 +1,318 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "News Search proposed provider input (not implemented)",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "const": "news"
+    },
+    "native": {
+      "type": "object",
+      "properties": {
+        "q": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "description": "Search phrase; nonempty, at most 400 characters and 50 words where required. Place Search also accepts omission or an empty phrase.",
+          "x-vendor-constraints": ""
+        },
+        "search_lang": {
+          "type": "string",
+          "enum": [
+            "ar",
+            "eu",
+            "bn",
+            "bg",
+            "ca",
+            "zh-hans",
+            "zh-hant",
+            "hr",
+            "cs",
+            "da",
+            "nl",
+            "en",
+            "en-gb",
+            "et",
+            "fi",
+            "fr",
+            "gl",
+            "de",
+            "el",
+            "gu",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "it",
+            "ja",
+            "jp",
+            "kn",
+            "ko",
+            "lv",
+            "lt",
+            "ms",
+            "ml",
+            "mr",
+            "nb",
+            "pl",
+            "pt-br",
+            "pt-pt",
+            "pa",
+            "ro",
+            "ru",
+            "sr",
+            "sk",
+            "sl",
+            "es",
+            "sv",
+            "ta",
+            "te",
+            "th",
+            "tr",
+            "uk",
+            "vi"
+          ],
+          "default": "en",
+          "description": "Preferred content language, not interface language. Codes identify languages; regional/script suffixes narrow the preference.",
+          "x-vendor-constraints": "`ar`, `eu`, `bn`, `bg`, `ca`, `zh-hans`, `zh-hant`, `hr`, `cs`, `da`, `nl`, `en`, `en-gb`, `et`, `fi`, `fr`, `gl`, `de`, `el`, `gu`, `he`, `hi`, `hu`, `is`, `it`, `ja`, `jp`, `kn`, `ko`, `lv`, `lt`, `ms`, `ml`, `mr`, `nb`, `pl`, `pt-br`, `pt-pt`, `pa`, `ro`, `ru`, `sr`, `sk`, `sl`, `es`, `sv`, `ta`, `te`, `th`, `tr`, `uk`, `vi`; default `en`"
+        },
+        "ui_lang": {
+          "type": "string",
+          "enum": [
+            "es-AR",
+            "en-AU",
+            "de-AT",
+            "nl-BE",
+            "fr-BE",
+            "pt-BR",
+            "en-CA",
+            "fr-CA",
+            "es-CL",
+            "da-DK",
+            "fi-FI",
+            "fr-FR",
+            "de-DE",
+            "el-GR",
+            "zh-HK",
+            "en-IN",
+            "en-ID",
+            "it-IT",
+            "ja-JP",
+            "ko-KR",
+            "en-MY",
+            "es-MX",
+            "nl-NL",
+            "en-NZ",
+            "no-NO",
+            "zh-CN",
+            "pl-PL",
+            "en-PH",
+            "ru-RU",
+            "en-ZA",
+            "es-ES",
+            "sv-SE",
+            "fr-CH",
+            "de-CH",
+            "zh-TW",
+            "tr-TR",
+            "en-GB",
+            "en-US",
+            "es-US"
+          ],
+          "default": "en-US",
+          "description": "Language-region locale for presentation and metadata, not a translation request.",
+          "x-vendor-constraints": "`es-AR`, `en-AU`, `de-AT`, `nl-BE`, `fr-BE`, `pt-BR`, `en-CA`, `fr-CA`, `es-CL`, `da-DK`, `fi-FI`, `fr-FR`, `de-DE`, `el-GR`, `zh-HK`, `en-IN`, `en-ID`, `it-IT`, `ja-JP`, `ko-KR`, `en-MY`, `es-MX`, `nl-NL`, `en-NZ`, `no-NO`, `zh-CN`, `pl-PL`, `en-PH`, `ru-RU`, `en-ZA`, `es-ES`, `sv-SE`, `fr-CH`, `de-CH`, `zh-TW`, `tr-TR`, `en-GB`, `en-US`, `es-US`; default `en-US`"
+        },
+        "country": {
+          "type": "string",
+          "enum": [
+            "AR",
+            "AU",
+            "AT",
+            "BE",
+            "BR",
+            "CA",
+            "CL",
+            "DK",
+            "FI",
+            "FR",
+            "DE",
+            "GR",
+            "HK",
+            "IN",
+            "ID",
+            "IT",
+            "JP",
+            "KR",
+            "MY",
+            "MX",
+            "NL",
+            "NZ",
+            "NO",
+            "CN",
+            "PL",
+            "PT",
+            "PH",
+            "RU",
+            "SA",
+            "ZA",
+            "ES",
+            "SE",
+            "CH",
+            "TW",
+            "TR",
+            "GB",
+            "US",
+            "ALL"
+          ],
+          "default": "US",
+          "description": "Result-country selection using the listed country codes; ALL means worldwide. For suggest/spellcheck it is a ranking hint, not a hard geographic boundary.",
+          "x-vendor-constraints": "`AR`, `AU`, `AT`, `BE`, `BR`, `CA`, `CL`, `DK`, `FI`, `FR`, `DE`, `GR`, `HK`, `IN`, `ID`, `IT`, `JP`, `KR`, `MY`, `MX`, `NL`, `NZ`, `NO`, `CN`, `PL`, `PT`, `PH`, `RU`, `SA`, `ZA`, `ES`, `SE`, `CH`, `TW`, `TR`, `GB`, `US`, `ALL`; default `US`"
+        },
+        "safesearch": {
+          "type": "string",
+          "enum": [
+            "off",
+            "moderate",
+            "strict"
+          ],
+          "default": "strict",
+          "description": "Adult-content policy; endpoint-specific off/moderate/strict semantics are explained below.",
+          "x-vendor-constraints": "`off`, `moderate`, `strict`; default `strict`"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1.0,
+          "maximum": 50.0,
+          "default": 20,
+          "description": "Requested result ceiling, not a guaranteed number; Web applies it only to web.results, Context uses it for candidate selection.",
+          "x-vendor-constraints": "`1`-`50`; default `20`"
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 9.0,
+          "default": 0,
+          "description": "Zero-based PAGE number, not a row offset. Keep count fixed across pages; duplicate results can occur.",
+          "x-vendor-constraints": "`0`-`9`; default `0`"
+        },
+        "spellcheck": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow upstream spelling changes before searching; inspect query.altered rather than pretending the original phrase was executed unchanged.",
+          "x-vendor-constraints": "default `true`"
+        },
+        "freshness": {
+          "type": "string",
+          "default": "",
+          "description": "Page-date filter: pd=24 hours, pw=7 days, pm=31 days, py=365 days, or inclusive-looking start/end syntax YYYY-MM-DDtoYYYY-MM-DD (boundary inclusivity unspecified). Empty means no age filter.",
+          "x-vendor-constraints": "default ``"
+        },
+        "extra_snippets": {
+          "type": "boolean",
+          "description": "Enable up to five additional alternative excerpts per result; boolean meaning, serialized as true/false in GET despite reference string type."
+        },
+        "goggles": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "maxItems": 3
+            }
+          ],
+          "description": "One inline ruleset or registered hosted ruleset URL, or up to three such values; changes ranking/filtering rather than searching a different index.",
+          "x-vendor-constraints": ""
+        },
+        "include_fetch_metadata": {
+          "type": "boolean",
+          "default": false,
+          "description": "Ask for fetch provenance/timestamps; availability and actual freshness are not guaranteed.",
+          "x-vendor-constraints": "default `false`"
+        },
+        "operators": {
+          "type": "boolean",
+          "default": true,
+          "description": "Interpret operator syntax within q when true; false requests literal query treatment. Operator behavior remains experimental.",
+          "x-vendor-constraints": "default `true`"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "q"
+      ]
+    },
+    "localization": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "output": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "raw",
+            "brief",
+            "links",
+            "relevant"
+          ],
+          "default": "brief"
+        },
+        "max_results": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200,
+          "default": 10
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 262144,
+          "default": 32768
+        },
+        "fields": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^/"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "fields"
+            ]
+          },
+          "then": {
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "const": "raw"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "operation",
+    "native"
+  ]
+}
